@@ -339,7 +339,7 @@ tr:nth-child(even) {
 
 /*--------------------------------*/
 
-/* Container do Card de Exibição */
+/* Container do Card de comunicados */
 .card-comunicado {
     width: 350px;
     padding: 20px;
@@ -418,4 +418,109 @@ tr:nth-child(even) {
     /* Mini sombra vermelha na própria tag para combinar */
     box-shadow: 2px 2px 0px #ff2a2a;
 }
+
 /***********************************************************/
+
+/*----CSS do card de updateProfile*/
+/* Container Principal do Card */
+.card-perfil {
+    width: 350px;
+    padding: 25px;
+    background: #ffffff;
+    border: 2px solid #000000;
+    border-radius: 12px;
+    /* Mantém a identidade da sombra rígida vermelha */
+    box-shadow: 5px 5px 0px #ff2a2a;
+    margin: 20px auto;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+/* Informações do Usuário */
+.perfil-nome {
+    margin: 0 0 5px 0;
+    font-size: 22px;
+    color: #1a1a1a;
+}
+
+.perfil-cargo {
+    margin: 0;
+    font-size: 14px;
+    color: #777777;
+}
+
+.divisor {
+    border: 0;
+    border-top: 1px dashed #dddddd;
+    margin: 20px 0;
+}
+
+/* Labels dos Campos */
+.campo-label {
+    display: block;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #333333;
+    margin-bottom: 6px;
+}
+
+/* Estilização dos Inputs (Select e Textarea) */
+.select-estilizado,
+.textarea-estilizado {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 15px;
+    color: #557a95;
+    background: #ffffff;
+    border: 1px solid #000000;
+    border-radius: 8px;
+    box-shadow: 3px 3px 0px #ff2a2a;
+    outline: none;
+    margin-bottom: 18px;
+    display: block;
+}
+
+.input-estilizado,
+.select-estilizado,
+.textarea-estilizado {
+    width: 90%;
+    padding: 10px 12px;
+    font-size: 15px;
+    color: #557a95;
+    background: #ffffff;
+    border: 1px solid #000000;
+    border-radius: 8px;
+    box-shadow: 3px 3px 0px #ff2a2a;
+    /* Sombra igual ao print */
+    outline: none;
+    margin-bottom: 18px;
+    display: block;
+}
+
+.textarea-estilizado {
+    height: 80px;
+    resize: vertical;
+}
+
+/* Botão de Ação seguindo o mesmo estilo */
+.botao-salvar {
+    width: 100%;
+    padding: 12px;
+    font-size: 15px;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #000000;
+    border: 1px solid #000000;
+    border-radius: 8px;
+    box-shadow: 3px 3px 0px #ff2a2a;
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+
+.botao-salvar:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0px #ff2a2a;
+}
+
+/*Fim updateProfile*/

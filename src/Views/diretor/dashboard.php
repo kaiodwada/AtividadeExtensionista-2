@@ -70,7 +70,7 @@ AuthMiddleware::check();
             <h1>Meu perfil</h1>
         </section>
         <section class="settings-form">
-            <?php require_once __DIR__ . '/../templates/profile/director.php' ?>
+            <?php require_once __DIR__ . '/../templates/profile/updateUserForm.php' ?>
         </section>
         <section class="p-separator" id="usuarios"">
             <h1>Criar novo usuario</h1>
