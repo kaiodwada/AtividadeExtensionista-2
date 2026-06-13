@@ -17,9 +17,9 @@ async function login() {
     console.log("Matricula", matr)
     console.log("Senha", pass)
     */
-    //const data = {matricula : "D4545", senha: "iasASDADbdaisud"} //Diretor
+    const data = {matricula : "D4545", senha: "iasASDADbdaisud"} //Diretor
     //const data = {matricula : "P23232", senha: "3sdada3333iasASDADbdaisud"} //Professor
-    const data = {matricula : "A3445", senha: "iasbdaisud"} //Aluno
+    //const data = {matricula : "A3445", senha: "iasbdaisud"} //Aluno
 
     const urlAPILogin = 'http://localhost/ProjetoFinal/api/login'
     const urlAPIDashDirector = 'http://localhost/ProjetoFinal/src/Views/diretor/dashboard.php'
@@ -40,13 +40,13 @@ async function login() {
         // 2. Transforma a resposta bruta do servidor em um Objeto/Array Javascript
         const acessarDashboard = await resposta.json();
         switch (acessarDashboard.redirect) {
-            case "diretor":
+            case "Diretor":
                 window.location.href = urlAPIDashDirector
                 break
-            case "aluno":
+            case "Aluno":
                 window.location.href = urlAPIDashStudent
                 break
-            case "professor":
+            case "Professor":
                 window.location.href = urlAPIDashTeacher 
         }
 

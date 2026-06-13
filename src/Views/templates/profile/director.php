@@ -1,11 +1,9 @@
 <div class="card-perfil">
     <div class="perfil-info">
         <h2 class="perfil-nome">João Silva</h2>
+        <p class="perfil-cargo">Id</p>
         <p class="perfil-cargo">Matricula</p>
-        <p class="perfil-cargo">Idade</p>
-        <p class="perfil-cargo">Tipo de ensino</p>
         <p class="perfil-cargo">Nivel de acesso</p>
-        <p class="perfil-cargo">Turma</p>
     </div>
 
     <hr class="divisor">
@@ -15,9 +13,15 @@
 
         <label class="campo-label">Senha</label>
         <input type="password" class="input-estilizado" placeholder="Digite nova senha">
+        <select class="select-estilizado">
+            <option value="" disabled>Status conta</option>
+            <option value="1">Desativar</option>
+            <option value="2" selected>Ativa</option>
+        </select>
         <button type="submit" class="botao-salvar">Salvar Alterações</button>
     </form>
 </div>
+
 
 <style>
     /* Container Principal do Card */

@@ -65,8 +65,7 @@ AuthMiddleware::check();
             <h1>Meu perfil</h1>
         </section>
         <section class="settings-form">
-            <?php require_once __DIR__ . '/../templates/forms/directorForm.php' ?>
-            <?php require_once __DIR__ . '/../templates/tables/directorTable.php' ?>
+            <?php require_once __DIR__ . '/../templates/profile/teacher.php' ?>
         </section>
         <section class="p-separator" id="comunicado">
             <h1>Painel de comunicados</h1>

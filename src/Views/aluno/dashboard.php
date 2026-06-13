@@ -23,82 +23,88 @@ AuthMiddleware::check();
                 <div class="card-container">
                     <h4><b>Meu desempenho</b></h4>
                 </div>
-                <a href="#professores" class="manage-button">Gerenciar</a>
-            </div>
-
-            <div class="card">
-                <div class="card-container">
-                    <h4><b>Quadro de materias</b></h4>
-                </div>
-                <a href="#alunos" class="manage-button">Gerenciar</a>
+                <a href="#desempenho" class="manage-button">Gerenciar</a>
             </div>
             <div class="card">
                 <div class="card-container">
                     <h4><b>Comunicados</b></h4>
                 </div>
-                <a href="#materias" class="manage-button">Verificar</a>
+                <a href="#comunicados" class="manage-button">Verificar</a>
             </div>
+            <div class="card">
+                <div class="card-container">
+                    <h4><b>Materias disponíveis</b></h4>
+                </div>
+                <a href="#materias" class="manage-button">Gerenciar</a>
+            </div>
+
         </section>
-
-
-        <section class="p-active">
+        <section class="p-active" id="comunicado">
             <h1>Meu Perfil</h1>
-
-
             <?php require_once __DIR__ . '/../templates/profile/student.php' ?>
-
-
-
         </section>
 
-
-
-        <section class="p-separator" id="turma">
-            <h1>Painel de turmas</h1>
-        </section>
-        <section class="p-active" id="turmas">
-            <h1>Minhas turmas</h1>
-            <?php require_once __DIR__ . '/../templates/tables/classTable.php' ?>
-        </section>
-        <section class="p-separator" id="meuPerfil">
-            <h1>Meu perfil</h1>
-        </section>
-        <section class="settings-form">
-            <?php require_once __DIR__ . '/../templates/forms/directorForm.php' ?>
-            <?php require_once __DIR__ . '/../templates/tables/directorTable.php' ?>
-        </section>
-        <section class="p-separator" id="comunicado">
+        <section class="p-separator">
             <h1>Painel de comunicados</h1>
         </section>
+
         <section class="settings-form">
-            <?php require_once __DIR__ . '/../templates/forms/announcementForm.php' ?>
-            <div>
-                <h1>Comunicados cadastrados</h1>
-                <?php require_once __DIR__ . '/../templates/tables/announcementTable.php' ?>
+            <div class="card-comunicado">
+                <div class="comunicado-header">
+                    <span class="comunicado-autor">Por: João Silva</span>
+                    <span class="comunicado-data">13 Jun 2026</span>
+                </div>
+
+                <h3 class="comunicado-titulo">Atualização do Sistema de Matrículas</h3>
+
+                <div class="comunicado-conteudo">
+                    <p>
+                        O novo módulo de matrículas já está ativo. Todos os administradores devem atualizar suas credenciais de acesso até o fim do dia. Caso encontre instabilidades no preenchimento dos campos, reporte imediatamente ao setor de TI.
+                    </p>
+                </div>
+
+                <div class="comunicado-footer">
+                    <span class="tag-status">Importante</span>
+                </div>
             </div>
+
+
         </section>
-        <section class="p-separator"><p>Todos os direitos reservados</p></section>
+        <section class="p-separator" id="desempenho">
+            <h1>Painel desempenho</h1>
+        </section>
+
+        <section class="p-active">
+            <h1>Meu desempenho</h1>
+            <?php require_once __DIR__ . '/../templates/tables/studentPerformance.php' ?>
+        </section>
+
+        <section class="p-separator" id="materias">
+            <h1>Painel desempenho</h1>
+        </section>
+
+        <section class="p-active">
+            <h1>Materias disponíveis</h1>
+            <table class="p-table" id="myTable">
+                <tr class="header">
+                    <th>Matéria</th>
+                    <th>Professor responsável</th>
+                </tr>
+                <tr>
+                    <td>Biologia</td>
+                    <td>Ricardo Amado</td>
+                </tr>
+                <tr>
+                    <td>Física</td>
+                    <td>Maximiliano Amadeu</td>
+                </tr>
+            </table>
+        </section>
+
+        <section class="p-separator">
+            <p>Todos os direitos reservados</p>
+        </section>
     </main>
-    <script>
-        function myFunction() {
-            var input, filter, table, tr, td, i, txtValue;
-            input = document.getElementById("myInput")
-            filter = input.value.toUpperCase()
-            table = document.getElementById("myTable")
-            tr = table.getElementsByTagName("tr")
-            for (i = 0; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td")[0]
-                if (td) {
-                    txtValue = td.textContent || td.innerText;
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        tr[i].style.display = ""
-                    } else {
-                        tr[i].style.display = "none"
-                    }
-                }
-            }
-        }
-    </script>
 </body>
 
 </html>

@@ -52,7 +52,7 @@
     transition: 0.3s;
     width: 200px;
     margin: 10px;
-    
+
     border-radius: 15px;
     text-align: center;
 }
@@ -263,9 +263,12 @@ tr:nth-child(even) {
 .p-table {
     width: 800px;
 }
-.active, .disabled{
+
+.active,
+.disabled {
     cursor: pointer;
 }
+
 .active {
     color: MediumSeaGreen;
 }
@@ -332,3 +335,87 @@ tr:nth-child(even) {
     cursor: pointer;
     font-size: 15px;
 }
+
+
+/*--------------------------------*/
+
+/* Container do Card de Exibição */
+.card-comunicado {
+    width: 350px;
+    padding: 20px;
+    /* Tom sutil de creme para diferenciar de um formulário de entrada */
+    background: #fffdf6;
+    border: 2px solid #000000;
+    border-radius: 12px;
+    /* Mantém a identidade visual da sombra rígida vermelha */
+    box-shadow: 5px 5px 0px #ff2a2a;
+    font-family: sans-serif;
+    box-sizing: border-box;
+    margin: 20px auto;
+}
+
+/* Cabeçalho com alinhamento dos lados */
+.comunicado-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #777777;
+    margin-bottom: 12px;
+}
+
+.comunicado-autor {
+    color: #333333;
+}
+
+/* Título em destaque */
+.comunicado-titulo {
+    margin: 0 0 10px 0;
+    font-size: 18px;
+    color: #1a1a1a;
+    line-height: 1.3;
+}
+
+/* Caixa de Texto (Simula o texto vindo do textarea) */
+.comunicado-conteudo {
+    background: #ffffff;
+    border: 1px solid #000000;
+    border-radius: 8px;
+    padding: 12px;
+    /* A mesma cor azulada/cinza que usamos nos inputs anteriores */
+    color: #557a95;
+    font-size: 14px;
+    line-height: 1.5;
+    min-height: 80px;
+    /* Adiciona uma sombra interna sutil, opcional para efeito de profundidade */
+    box-shadow: inset 2px 2px 0px rgba(0, 0, 0, 0.05);
+}
+
+.comunicado-conteudo p {
+    margin: 0;
+    /* Preserva quebras de linha caso o usuário tenha apertado 'Enter' no textarea */
+    white-space: pre-wrap;
+}
+
+/* Rodapé do Card */
+.comunicado-footer {
+    margin-top: 15px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+/* Tag estilizada */
+.tag-status {
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+    background-color: #000000;
+    color: #ffffff;
+    padding: 4px 8px;
+    border-radius: 4px;
+    /* Mini sombra vermelha na própria tag para combinar */
+    box-shadow: 2px 2px 0px #ff2a2a;
+}
+/***********************************************************/
