@@ -51,25 +51,33 @@ AuthMiddleware::check();
             </div>
         </section>
 
-        <section class="settings-form" id="alunos">
+        <section class="settings-form" id="turmas">
             <?php require_once __DIR__ . '/../templates/forms/classForm.php' ?>
-            <?php require_once __DIR__ . '/../templates/table.php' ?>
+            <div>
+                <h1>Turmas cadastradas</h1>
+                <?php require_once __DIR__ . '/../templates/tables/classTable.php' ?>
+            </div>
+
         </section>
         <section class="p-separator" id="materias"></section>
         <section class="settings-form">
             <?php require_once __DIR__ . '/../templates/forms/schoolSubjects.php' ?>
-            <?php require_once __DIR__ . '/../templates/table2.php' ?>
+            <div>
+                <h1>Materias cadastradas</h1>
+                <?php require_once __DIR__ . '/../templates/tables/schoolSubjectsTable.php' ?>
+            </div>
         </section>
         <section class="p-separator" id="meuPerfil">
             <h1>Meu perfil</h1>
         </section>
         <section class="settings-form">
             <?php require_once __DIR__ . '/../templates/forms/directorForm.php' ?>
+            <?php require_once __DIR__ . '/../templates/tables/directorTable.php' ?>
         </section>
         <section class="p-separator" id="usuarios"">
             <h1>Criar novo usuario</h1>
         </section>
-        <section class="settings-form">
+        <section class=" settings-form">
             <?php require_once __DIR__ . '/../templates/forms/userForm.php' ?>
             <div>
                 <h2>Padrão de criação de novos usuários</h2>
@@ -96,9 +104,8 @@ AuthMiddleware::check();
 
         <section class="p-active">
             <h1>Alunos cadastrados</h1>
-            <?php require_once __DIR__ . '/../templates/tables/sFrontTable.php' ?>
+            <?php require_once __DIR__ . '/../templates/tables/studentTable.php' ?>
         </section>
-
 
         <section class="p-separator">
             <p>Todos os direitos reservados</p>

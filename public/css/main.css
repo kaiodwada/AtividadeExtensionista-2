@@ -263,7 +263,9 @@ tr:nth-child(even) {
 .p-table {
     width: 800px;
 }
-
+.active, .disabled{
+    cursor: pointer;
+}
 .active {
     color: MediumSeaGreen;
 }
