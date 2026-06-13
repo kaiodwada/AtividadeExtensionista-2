@@ -1,0 +1,6 @@
+DirectoryIndex public/login.html
+RewriteEngine On
+RewriteBase /ProjetoFinal/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^api/(.*)$ public/index.php [QSA,L]

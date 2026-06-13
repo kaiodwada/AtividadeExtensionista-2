@@ -1,0 +1,332 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+@font-face {
+    font-family: 'College';
+    src: url('http://localhost/ProjetoFinal/public/assets/fonts/college.ttf') format('truetype');
+}
+
+/* CSS do header */
+.dashboard-header {
+    background-color: rgb(126, 186, 207);
+}
+
+.book-logo-icon {
+    width: 300px;
+    height: 300px;
+}
+
+.logo-text {
+    color: rgb(249, 50, 50);
+    font-family: 'College';
+    font-size: 2rem;
+}
+
+.logo {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+/* Fim CSS do header */
+
+.director-main {
+    background-color: rgb(34, 36, 42);
+    /*height: 1000px;*/
+}
+
+.director-main>h1 {
+    text-align: center;
+    padding: 20px;
+    margin-bottom: 20px;
+    color: white;
+}
+
+/*CSS dos cards de informações primárias*/
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    background-color: rgb(114, 114, 227);
+    color: white;
+    transition: 0.3s;
+    width: 200px;
+    margin: 10px;
+    
+    border-radius: 15px;
+    text-align: center;
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+.card-container {
+    padding: 20px;
+    font-size: 20px;
+    font-family: 'College';
+}
+
+/*Fim cards*/
+
+.p-separator {
+    width: 100%;
+    height: 100px;
+    background-color: rgb(65, 174, 153);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: row nowrap;
+}
+
+/*alinhamento*/
+.info-tables {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: row wrap;
+}
+
+h1 {
+    font-family: 'College';
+}
+
+.settings-form {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-flow: row wrap;
+    margin: 20px;
+    padding: 20px;
+}
+
+.settings-form>h1 {
+    margin: 10px;
+    color: white;
+}
+
+.settings-form>form {
+    padding: 10px;
+}
+
+/* CSS Formulário */
+.login-form,
+.createForm,
+.p-active>form {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.book-logo-icon {
+    width: 300px;
+    height: 300px;
+}
+
+.login-image-background {
+    width: 900px;
+    height: 1000px;
+}
+
+.section-background {
+    margin-left: 500px;
+}
+
+.login-form,
+.login-form>input,
+.login-form>button,
+.p-active>form,
+.createForm>input {
+    margin: 5px;
+}
+
+.settings-form>form>input,
+.p-active>form>input {
+    max-width: 190px;
+    padding: 0.575rem;
+    font-size: 1rem;
+    border: 1.5px solid #000;
+    border-radius: 0.5rem;
+    box-shadow: 2.5px 3px 0 rgb(249, 50, 50);
+    outline: none;
+    transition: ease 0.25s;
+}
+
+.select-form {
+    max-width: 190px;
+    padding: 0.575rem;
+    font-size: 1rem;
+    color: #557a95;
+    background: #ffffff;
+    border: 1px solid #000000;
+    border-radius: 8px;
+    box-shadow: 2.5px 3px 0 rgb(249, 50, 50);
+    outline: none;
+    transition: ease 0.25s;
+}
+
+.select-form {
+    max-width: 100%;
+    margin: 5px;
+    padding: 0.575rem;
+    font-size: 1rem;
+    color: #557a95;
+    background: #ffffff;
+    border: 1px solid #000000;
+    border-radius: 8px;
+    box-shadow: 2.5px 3px 0 rgb(249, 50, 50);
+    outline: none;
+    transition: ease 0.25s;
+}
+
+
+.settings-form>form>input:focus,
+.p-active>form>input {
+    box-shadow: 5.5px 7px 0 rgb(249, 50, 50);
+}
+
+.settings-form>form>button,
+.p-active>form>button {
+    border: 1.5px solid #000;
+    border-radius: 0.5rem;
+    padding: 10px;
+    font-size: 1rem;
+    box-shadow: 2.5px 3px 0 rgb(249, 50, 50);
+    outline: none;
+    transition: ease 0.25s;
+}
+
+.settings-form>form>button:hover,
+.p-active>form>button {
+    box-shadow: 5.5px 7px 0 rgb(249, 50, 50);
+    cursor: pointer;
+}
+
+.settings-form,
+.settings-form>h1 {
+    background-color: white;
+    color: black;
+}
+
+.textareaForm {
+    width: 250px;
+    height: 100px;
+    padding: 12px 15px;
+    font-size: 16px;
+    font-family: sans-serif;
+    color: #557a95;
+    background: #ffffff;
+    border: 1px solid #000000;
+    border-radius: 8px;
+    box-shadow: 3px 3px 0px #ff2a2a;
+    outline: none;
+    resize: vertical;
+}
+
+/* Fim css form*/
+
+/*Painel de alteração professores */
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td,
+th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+.p-active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column wrap;
+    margin: 10px;
+    padding: 10px;
+    background: #ffffff;
+}
+
+.p-active>h1 {
+    margin: 20px;
+}
+
+.p-table {
+    width: 800px;
+}
+
+.active {
+    color: MediumSeaGreen;
+}
+
+.disabled {
+    color: tomato;
+}
+
+#myInput {
+    background-image: url('http://localhost/ProjetoFinal/public/assets/search.png');
+    background-position: 10px 10px;
+    background-size: 20px;
+    background-repeat: no-repeat;
+    width: 740px;
+    font-size: 16px;
+    padding: 12px 20px 12px 40px;
+    border: 1px solid #ddd;
+    margin-bottom: 12px;
+}
+
+.invisible {
+    display: none;
+}
+
+.createForm>input {
+    max-width: 190px;
+    padding: 0.575rem;
+    font-size: 1rem;
+    border: 1.5px solid #000;
+    border-radius: 0.5rem;
+    box-shadow: 2.5px 3px 0 rgb(249, 50, 50);
+    outline: none;
+    transition: ease 0.25s;
+}
+
+.createForm>input:focus {
+    box-shadow: 5.5px 7px 0 rgb(249, 50, 50);
+}
+
+.logout-button {
+    background-color: tomato;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.manage-button {
+    background-color: #008CBA;
+    border: 2px solid black;
+    border-radius: 10px;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+    cursor: pointer;
+    font-size: 15px;
+}

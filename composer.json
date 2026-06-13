@@ -1,0 +1,17 @@
+{
+    "name": "kaioa/projeto-final",
+    "description": "Atividade extensionista",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Kaioadwada",
+            "email": "kaio-giovany@hotmail.com"
+        }
+    ],
+    "require": {}
+}

@@ -1,0 +1,79 @@
+<?php
+
+require_once __DIR__ . '/../Config/Database.php';
+
+class Student
+{
+    private $db;
+
+    public function __construct($connection = null)
+    {
+        if ($connection !== null) {
+            $this->db = $connection;
+        } else {
+            $this->db = Database::connect();
+        }
+    }
+
+    public function all()
+    {
+        return $this->db
+            ->query('SELECT * FROM aluno')
+            ->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function dataCheck($data)
+    {
+        if (
+            !$data || empty($data['matricula']) || empty($data['nome']) || empty($data['idade']) || empty($data['tipoEnsino']) || empty($data['nivelAcesso'])
+            || empty($data['status_conta']|| empty($data['id_turma']))
+        ) {
+            Response::json(['error' => "Falta dados para criar aluno"], 400);
+        }
+    }
+    public function find($id)
+    {
+        $stmt = $this->db->prepare('SELECT * FROM diretor WHERE id_diretor = ?');
+        $stmt->execute([$id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function create($data, $user_id)
+    {
+        $stmt = $this->db->prepare(
+            'INSERT INTO aluno (matricula,nome,idade,tipoEnsino,nivelAcesso,id_turma,id_usuario) VALUES (?,?,?,?,?,?,?)'
+        );
+        return $stmt->execute([
+            $data['matricula'],
+            $data['nome'],
+            $data['idade'],
+            $data['tipoEnsino'],
+            $data['nivelAcesso'],
+            $data['id_turma'],
+            $user_id
+        ]);
+    }
+
+    public function update($id, $data)
+    {
+        $stmt = $this->db->prepare(
+            'UPDATE diretor SET matricula = ?,nome = ?,nivelAcesso = ? WHERE id_diretor = ?'
+        );
+        return $stmt->execute([
+            $data['matricula'],
+            $data['nome'],
+            $data['nivelAcesso'],
+            $id
+        ]);
+    }
+
+    public function delete($id)
+    {
+        $stmt = $this->db->prepare('DELETE FROM diretor WHERE id_diretor = ?');
+        return $stmt->execute([$id]);
+    }
+
+    public function setConnection($connection)
+    {
+        $this->db = $connection;
+    }
+}
