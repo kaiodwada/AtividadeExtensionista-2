@@ -57,9 +57,8 @@ AuthMiddleware::check();
                 <h1>Turmas cadastradas</h1>
                 <?php require_once __DIR__ . '/../templates/tables/classTable.php' ?>
             </div>
-
         </section>
-        <section class="p-separator" id="materias"></section>
+        <section class="p-separator" id="materias"><h1>Materias</h1></section>
         <section class="settings-form">
             <?php require_once __DIR__ . '/../templates/forms/schoolSubjects.php' ?>
             <div>
