@@ -17,7 +17,7 @@ AuthMiddleware::check();
     <?php require_once __DIR__ . '/../templates/header.php' ?>
 
     <main class="director-main">
-        <h1 class="">Seja bem vindo <?php echo $_SESSION['usuario_escola']['matr']; ?> <button class="logout-button">Logout</button></h1>
+        <h1 class="">Seja bem vindo <?php echo $_SESSION['usuario_escola']['matr']; ?> <button id="btnLogout" class="logout-button" >Logout</button></h1>
         <section class="info-tables">
             <div class="card">
                 <div class="card-container">
@@ -79,26 +79,10 @@ AuthMiddleware::check();
         </section>
         <section class="p-separator"><p>Todos os direitos reservados</p></section>
     </main>
-    <script>
-        function myFunction() {
-            var input, filter, table, tr, td, i, txtValue;
-            input = document.getElementById("myInput")
-            filter = input.value.toUpperCase()
-            table = document.getElementById("myTable")
-            tr = table.getElementsByTagName("tr")
-            for (i = 0; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td")[0]
-                if (td) {
-                    txtValue = td.textContent || td.innerText;
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        tr[i].style.display = ""
-                    } else {
-                        tr[i].style.display = "none"
-                    }
-                }
-            }
-        }
-    </script>
+    <script src="http://localhost/ProjetoFinal/public/js/login.js"></script>
+
+
+
 </body>
 
 </html>

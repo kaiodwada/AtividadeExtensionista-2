@@ -33,7 +33,7 @@ AuthMiddleware::check();
             </div>
             <div class="card">
                 <div class="card-container">
-                    <h4><b>Materias disponíveis</b></h4>
+                    <h4><b>Materias disponiveis</b></h4>
                 </div>
                 <a href="#materias" class="manage-button">Gerenciar</a>
             </div>
@@ -84,7 +84,7 @@ AuthMiddleware::check();
         </section>
 
         <section class="p-active">
-            <h1>Materias disponíveis</h1>
+            <h1>Materias disponiveis</h1>
             <table class="p-table" id="myTable">
                 <tr class="header">
                     <th>Matéria</th>

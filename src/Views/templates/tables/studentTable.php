@@ -9,8 +9,7 @@
         <th>Nivel de acesso</th>
         <th>Presente na turma</th>
         <th>Status da conta</th>
-        <th>Alterar</th>
-        <th>Deletar</th>
+        <th>Desempenho</th>
     </tr>
     <tr>
         <td>1</td>
@@ -21,8 +20,7 @@
         <td>1</td>
         <td>1º B</td>
         <td class="active">Ativo</td>
-        <th><button class="active">Editar</button></th>
-        <th><button class="disabled">Deletar</button></th>
+        <th><button class="active">Verificar</button></th>
     </tr>
 
 </table>

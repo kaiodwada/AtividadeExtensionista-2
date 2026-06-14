@@ -17,7 +17,7 @@ async function login() {
     console.log("Matricula", matr)
     console.log("Senha", pass)
     */
-    const data = {matricula : "D4545", senha: "iasASDADbdaisud"} //Diretor
+    const data = { matricula: "D4545", senha: "iasASDADbdaisud" } //Diretor
     //const data = {matricula : "P23232", senha: "3sdada3333iasASDADbdaisud"} //Professor
     //const data = {matricula : "A3445", senha: "iasbdaisud"} //Aluno
 
@@ -33,7 +33,7 @@ async function login() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
         })
-        
+
         // Se a API der erro (ex: 404 ou 500), joga para o bloco catch
         if (!resposta.ok) throw new Error('Erro ao buscar dados da API');
 
@@ -47,14 +47,38 @@ async function login() {
                 window.location.href = urlAPIDashStudent
                 break
             case "Professor":
-                window.location.href = urlAPIDashTeacher 
+                window.location.href = urlAPIDashTeacher
         }
 
     } catch (erro) {
         console.error('Ops! Algo deu errado:', erro);
     }
-        
+
 }
 
-document.getElementById("btnLogin").addEventListener("click", login)
+async function logout() {
+    event.preventDefault();
+    const urlAPILogout = 'http://localhost/ProjetoFinal/api/logout'
+    const urlAPiHome = 'http://localhost/ProjetoFinal/'
+    try {
+        // 1. Faz a requisição assíncrona (espera a resposta do servidor)
+        const resposta = await fetch(urlAPILogout, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        })
+
+        // Se a API der erro (ex: 404 ou 500), joga para o bloco catch
+        if (!resposta.ok){
+            throw new Error('Erro ao buscar dados da API')
+        }else{
+            window.location.href = urlAPiHome
+        }
+    } catch (erro) {
+        console.error('Ops! Algo deu errado:', erro);
+    }
+
+}
+
+document.getElementById("btnLogout").addEventListener("click", login)
 
