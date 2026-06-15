@@ -17,11 +17,9 @@ class StudentController{
 
     public function show($id){
         $student = $this->student->find($id);
-
         if(!$student){
             Response::json(["error" => "Aluno não encontrado"], 404);
         }
-
         Response::json($student);
     }
 

@@ -1,12 +1,11 @@
 async function login() {
     event.preventDefault();
-    /*
-    let matr = document.forms["loginForm"]["txtMatricula"].value
-    let pass = document.forms["loginForm"]["txtPassword"].value
-    console.log("Matricula", matr)
-    console.log("Senha", pass)
-    */
-    const data = { matricula: "D4545", senha: "iasASDADbdaisud" } //Diretor
+    
+    let matricula = document.forms["loginForm"]["txtMatricula"].value
+    let senha = document.forms["loginForm"]["txtPassword"].value
+    const data = {matricula, senha}
+
+    //const data = { matricula: "D4545", senha: "iasASDADbdaisud" } //Diretor
     //const data = {matricula : "P23232", senha: "3sdada3333iasASDADbdaisud"} //Professor
     //const data = {matricula : "A3445", senha: "iasbdaisud"} //Aluno
 

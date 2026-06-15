@@ -14,7 +14,7 @@ class TurmaController{
     public function index(){
         Response::json($this->turma->all());
     }
-/*
+
     public function show($id){
         $turma = $this->turma->find($id);
 
@@ -24,7 +24,6 @@ class TurmaController{
 
         Response::json($turma);
     }
-*/
     public function store(){
         $data = json_decode(file_get_contents('php://input'), true);
 

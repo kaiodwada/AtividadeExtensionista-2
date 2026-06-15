@@ -2,27 +2,38 @@
 
 require_once __DIR__ . '/../Config/Database.php';
 
-class Performance {
+class Performance
+{
     private $db;
 
     public function __construct()
     {
-       $this->db = Database::connect();
+        $this->db = Database::connect();
     }
 
-    public function all(){
-        return $this->db 
-        ->query('SELECT * FROM desempenhoprovas')
-        ->fetchAll(PDO::FETCH_ASSOC);
+    public function all()
+    {
+        return $this->db
+            ->query('SELECT * FROM desempenhoprovas')
+            ->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function find($id){
-        $stmt = $this->db->prepare('SELECT * FROM desempenhoprovas WHERE id_desempenho = ?');
+    public function find($id)
+    {
+        $stmt = $this->db->prepare('SELECT  m.nomeMateria,
+                                            dp.nota_primeira_prova,
+                                            dp.nota_segunda_prova,
+                                            ROUND((dp.nota_primeira_prova + dp.nota_segunda_prova) / 2, 1) AS Media
+                                        FROM desempenhoProvas dp
+                                        INNER JOIN aluno a ON dp.id_aluno = a.id_aluno
+                                        INNER JOIN materias m ON dp.id_materia = m.id_materia
+                                        WHERE a.id_usuario = ?');
         $stmt->execute([$id]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function create($data){
+    public function create($data)
+    {
         $stmt = $this->db->prepare(
             'INSERT INTO desempenhoprovas (id_aluno,id_turma,id_materia,nota_primeira_prova) VALUES (?,?,?,?)'
         );
@@ -34,19 +45,20 @@ class Performance {
         ]);
     }
 
-    public function update($id, $data){
+    public function update($id, $data)
+    {
         $stmt = $this->db->prepare(
             'UPDATE desempenhoprovas SET nota_segunda_prova = ? WHERE id_desempenho = ?'
         );
         return $stmt->execute([
             $data['nota_segunda_prova'],
             $id
-        ]);        
+        ]);
     }
 
-    public function delete($id){
+    public function delete($id)
+    {
         $stmt = $this->db->prepare('DELETE FROM desempenhoprovas WHERE id_desempenho = ?');
         return $stmt->execute([$id]);
     }
-
 }

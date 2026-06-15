@@ -21,13 +21,13 @@ class Turma {
                  INNER JOIN professor as p ON t.id_professor = p.id_professor')
         ->fetchAll(PDO::FETCH_ASSOC);
     }
-/*
+
     public function find($id){
-        $stmt = $this->db->prepare('SELECT * FROM diretor WHERE id_diretor = ?');
+        $stmt = $this->db->prepare('SELECT * FROM turma WHERE id_turma = ?');
         $stmt->execute([$id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
-*/
+
     public function create($data){
         $stmt = $this->db->prepare(
             'INSERT INTO turma (nomeTurma,id_professor) VALUES (?,?)'

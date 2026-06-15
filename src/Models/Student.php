@@ -32,7 +32,26 @@ class Student
     }
     public function find($id)
     {
-        $stmt = $this->db->prepare('SELECT * FROM diretor WHERE id_diretor = ?');
+        $stmt = $this->db->prepare('SELECT a.id_aluno,
+                                           a.matricula,
+                                           a.nome,
+                                           a.idade,
+                                           a.tipoEnsino,
+                                           a.nivelAcesso,
+                                           a.id_turma,
+                                           a.id_usuario,
+                                           u.id_usuario,
+                                           u.matricula_usuario,
+                                           u.senha_hash,
+                                           u.tipo_usuario,
+                                           u.status_conta,
+                                           u.data_criacao,
+                                           t.id_turma,
+                                           t.nomeTurma,
+                                           t.id_professor
+                                    FROM aluno as a
+                                    INNER JOIN usuarios as u ON u.id_usuario = ?
+                                    INNER JOIN turma t ON a.id_turma = t.id_turma');
         $stmt->execute([$id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }

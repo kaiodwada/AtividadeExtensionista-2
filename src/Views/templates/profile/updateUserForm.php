@@ -1,14 +1,15 @@
 <div class="card-perfil">
     <div class="perfil-info" id="perfilInfo">
-        <h2 class="perfil-nome">João Silva</h2>
-        <p class="perfil-cargo">Id</p>
-        <p class="perfil-cargo">Matricula</p>
-        <p class="perfil-cargo">Nivel de acesso</p>
+        <h2 class="perfil-nome">Loading....</h2>
+        <p class="perfil-cargo">Loading....</p>
+        <p class="perfil-cargo">Loading....</p>
+        <p class="perfil-cargo">Loading....</p>
     </div>
 
     <hr class="divisor">
     <form id="perfilForm" class="perfil-formulario">
         <input type="hidden" id="idPerfil" value="<?php echo $_SESSION['usuario_escola']['id']; ?>">
+        <input type="hidden" id="tipoUsuario" value="<?php echo $_SESSION['usuario_escola']['tipo'] ?>">
         <label class="campo-label">Nome</label>
         <input type="text" class="input-estilizado" placeholder="Corrigir nome">
 

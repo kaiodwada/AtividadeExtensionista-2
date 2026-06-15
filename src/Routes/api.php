@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 require_once __DIR__ . '/../Controllers/LoginController.php';
 require_once __DIR__ . '/../Controllers/PerformanceController.php';
@@ -72,8 +72,12 @@ if ($uri[0] === 'performance' && $method === 'POST') {
 
 if ($uri[0] === 'performance' && $method === 'GET') {
     $user = new PerformanceController();
-    $user->index();
-    exit;
+    if (isset($uri[1])) {
+        $user->show($uri[1]);
+    } else {
+        $user->index();
+        exit;        
+    }
 }
 
 if ($uri[0] === 'comunicado' && $method === 'POST') {
@@ -101,9 +105,20 @@ if ($uri[0] === 'materia' && $method === 'GET') {
 }
 
 if ($uri[0] === 'meuPerfil' && $method === 'GET') {
-    $user = new DirectorController();
-    $user->show($uri[1]);
-    exit;
+    switch ($uri[2]) {
+        case 'Diretor':
+            $user = new DirectorController();
+            $user->show($uri[1]);
+            exit;
+        case 'Aluno':
+            $user = new StudentController();
+            $user->show($uri[1]);
+            exit;
+        case 'Professor':
+            $user = new TeacherController();
+            $user->show($uri[1]);
+            exit;
+    }
 }
 if ($uri[0] === 'aluno' && $method === 'GET') {
     $user = new StudentController();
@@ -120,7 +135,7 @@ if ($uri[0] === 'professor' && $method === 'GET') {
 //Descobre o tipo de controller usando operador ternário
 $get_controller = isset($uri[0]) ? trim($uri[0]) : '';
 
-if(empty($get_controller)){
+if (empty($get_controller)) {
     Response::json(["error" => "Rota inválida"], 400);
 }
 
@@ -131,7 +146,7 @@ $map = [
     'materia' => 'MateriaController'
 ];
 
-if (array_key_exists($get_controller, $map)){
+if (array_key_exists($get_controller, $map)) {
     $actual_controller = $map[$get_controller];
 }
 
@@ -139,7 +154,7 @@ if (array_key_exists($get_controller, $map)){
 $fileController = __DIR__ . '/../Controllers/' . $actual_controller . '.php';
 
 //Verifica se existe o arquivo
-if (!file_exists($fileController)){
+if (!file_exists($fileController)) {
     Response::json(["error" => "Controller não possui definição"], 404);
 }
 // Pega o arquivo
@@ -149,15 +164,15 @@ $controller = new $actual_controller();
 
 AuthMiddleware::check();
 
-switch ($method){
+switch ($method) {
     case 'GET':
-        if(isset($uri[1])){
-            if (method_exists($controller, 'show')){
-               $controller->show($uri[1]);
+        if (isset($uri[1])) {
+            if (method_exists($controller, 'show')) {
+                $controller->show($uri[1]);
             } else {
                 Response::json(["error" => "Método não existe"], 405);
             }
-        } else{
+        } else {
             $controller->index();
         }
         break;
@@ -165,9 +180,9 @@ switch ($method){
         $controller->store();
         break;
     case 'PUT':
-        if(isset($uri[1])){
+        if (isset($uri[1])) {
             $controller->update($uri[1]);
-        } else{
+        } else {
             Response::json(["error" => "ID do diretor fornecido"], 400);
         }
         break;

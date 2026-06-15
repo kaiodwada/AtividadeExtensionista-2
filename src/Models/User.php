@@ -29,7 +29,8 @@ class User
                                   FROM Usuarios WHERE matricula_usuario = :id;');
         $stmt->execute(['id' => $matr]);
         $login = $stmt->fetch(PDO::FETCH_ASSOC);
-        if ($matr === $login['matricula_usuario'] && password_verify($senha, $login['senha_hash'])) {
+        //if ($matr === $login['matricula_usuario'] && password_verify($senha, $login['senha_hash'])) {
+        if ($matr === $login['matricula_usuario'] && $senha === $login['senha_hash']) {
             if (session_status() === PHP_SESSION_NONE) {
                 session_start();
             }

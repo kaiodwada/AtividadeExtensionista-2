@@ -106,9 +106,11 @@ async function carregarMaterias() {
 // Função assíncrona para buscar as materias
 async function carregarPerfil() {
     const data = document.getElementById('idPerfil').value
+    const tipo = document.getElementById('tipoUsuario').value 
     const selectData = document.getElementById('select-status')
-    const urlAPIPerfil = `http://localhost/ProjetoFinal/api/meuPerfil/${data}`
 
+    const urlAPIPerfil = `http://localhost/ProjetoFinal/api/meuPerfil/${data}/${tipo}`
+    
     try {
         // 1. Faz a requisição assíncrona (espera a resposta do servidor)
         const resposta = await fetch(urlAPIPerfil, {
@@ -155,17 +157,17 @@ async function carregarProfessores() {
         const tbody = document.getElementById('tabela-professores')
         tbody.innerHTML = '' // Limpa a tabela antes de preencher
         tbody.innerHTML += `
-    <tr class="header">
-        <th>#Id</th>
-        <th>Nome</th>
-        <th>Matricula</th>
-        <th>Nivel de acesso</th>
-        <th>Status</th>
-        <th>Materia</th>
-        <th>Alterar</th>
-        <th>Deletar</th>
-    </tr>
-        `
+                   <tr class="header">
+                       <th>#Id</th>
+                       <th>Nome</th>
+                       <th>Matricula</th>
+                       <th>Nivel de acesso</th>
+                       <th>Status</th>
+                       <th>Materia</th>
+                       <th>Alterar</th>
+                       <th>Deletar</th>
+                   </tr>
+                 `
         // 4. Faz um loop no array de professores e cria as linhas HTML
 
         professores.forEach(professor => {
@@ -191,7 +193,7 @@ async function carregarProfessores() {
 }
 
 // Função assíncrona para buscar as materias
-async function carregarAlunos() {
+async function carregarAlunos() {   
     const urlAPIAlunos = 'http://localhost/ProjetoFinal/api/aluno'
     try {
         // 1. Faz a requisição assíncrona (espera a resposta do servidor)
@@ -209,20 +211,20 @@ async function carregarAlunos() {
         const tbody = document.getElementById('tabela-alunos')
         tbody.innerHTML = '' // Limpa a tabela antes de preencher
         tbody.innerHTML += `
-    <tr class="header">
-        <th>#Id</th>
-        <th>Nome</th>
-        <th>Matricula</th>
-        <th>Idade</th>
-        <th>Tipo de ensino</th>
-        <th>Nivel de acesso</th>
-        <th>Presente na turma</th>
-        <th>Status da conta</th>
-        <th>Desempenho</th>
-        <th>Editar</th>
-        <th>Deletar</th>
-    </tr>
-        `
+                        <tr class="header">
+                            <th>#Id</th>
+                            <th>Nome</th>
+                            <th>Matricula</th>
+                            <th>Idade</th>
+                            <th>Tipo de ensino</th>
+                            <th>Nivel de acesso</th>
+                            <th>Presente na turma</th>
+                            <th>Status da conta</th>
+                            <th>Desempenho</th>
+                            <th>Editar</th>
+                            <th>Deletar</th>
+                        </tr>
+                        `
         // 4. Faz um loop no array de alunos e cria as linhas HTML
 
         alunos.forEach(aluno => {
@@ -269,13 +271,12 @@ async function criarUsuario() {
     let tipo_usuario = document.getElementById('select-tipo').value
     let status_conta = document.getElementById('select-statusConta').value
     let idade = document.getElementById('studentsAgeData').value
-    let tEnsino = document.getElementById('studentsTpData').value
-    let acesso =  document.getElementById('studentsAccessData').value
-    let turma = document.getElementById('select-turmas').value     
+    let tipoEnsino = document.getElementById('studentsTpData').value
+    let id_turma = document.getElementById('select-turmas').value     
     let nivelAcesso = document.getElementById('select-nivel').value 
     let matricula = matricula_usuario
 
-    const form = {nome,matricula_usuario,senha_hash,tipo_usuario,status_conta,idade,tEnsino,acesso,turma,nivelAcesso, matricula}  
+    const form = {nome,matricula_usuario,senha_hash,tipo_usuario,status_conta,idade,tipoEnsino,id_turma,nivelAcesso, matricula}  
     const data = Object.fromEntries(Object.entries(form).filter(([_, value]) => value !== "" && value !== null && value !== undefined))
     console.log(JSON.stringify(data))
     try {
@@ -289,6 +290,8 @@ async function criarUsuario() {
         }
         alert("Usuário criado com sucesso!")
         document.getElementById('createForm').reset()
+        const studentsClassData = document.getElementById('studentsClassData')
+        studentsClassData.classList.add('invisible')
     } catch (erro) {
         console.error('Falha ao criar usuario: ', erro)
     }

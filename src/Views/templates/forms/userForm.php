@@ -6,8 +6,11 @@
     <!-- Dados dos alunos -->
     <div id="studentsClassData" class="invisible createForm">
         <input type="text" id="studentsAgeData" placeholder="Idade">
-        <input type="text" id="studentsTpData" placeholder="Tipo de ensino">
-        <input type="text" id="studentsAccessData" placeholder="Nivel de acesso">
+        <select class="select-form" id="studentsTpData">
+            <option value="" disabled selected>Tipo de ensino</option>
+            <option value="Ensino médio">Ensino médio</option>
+            <option value="Ensino médio">Ensino fundamental</option>
+        </select>        
         <select class="select-form" id="select-turmas">
             <option value="" disabled selected>Turma</option>
             <option value="">Loading.....</option>
