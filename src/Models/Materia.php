@@ -16,9 +16,7 @@ class Materia {
                         m.nomeMateria,
                         m.id_professor,
                         p.id_professor,
-                        p.matricula,
-                        p.nome,
-                        p.nivelAcesso
+                        p.nome
                  FROM materias as m
                  INNER JOIN professor as p ON m.id_materia = p.id_professor')
         ->fetchAll(PDO::FETCH_ASSOC);

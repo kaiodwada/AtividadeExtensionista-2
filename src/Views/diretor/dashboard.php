@@ -16,7 +16,7 @@ AuthMiddleware::check();
     <?php require_once __DIR__ . '/../templates/header.php' ?>
 
     <main class="director-main">
-        <h1 class="">Seja bem vindo <?php echo $_SESSION['usuario_escola']['matr']; ?> <button class="logout-button">Logout</button></h1>
+        <h1 class="">Seja bem vindo <?php echo $_SESSION['usuario_escola']['matr']; ?> <button id="btnLogout" class="logout-button">Logout</button></h1>
         <section class="info-tables">
             <div class="card">
                 <div class="card-container">
@@ -58,7 +58,9 @@ AuthMiddleware::check();
                 <?php require_once __DIR__ . '/../templates/tables/classTable.php' ?>
             </div>
         </section>
-        <section class="p-separator" id="materias"><h1>Materias</h1></section>
+        <section class="p-separator" id="materias">
+            <h1>Materias</h1>
+        </section>
         <section class="settings-form">
             <?php require_once __DIR__ . '/../templates/forms/schoolSubjects.php' ?>
             <div>
@@ -93,7 +95,7 @@ AuthMiddleware::check();
 
         <section class="p-active">
             <h1>Professores cadastrados</h1>
-            <?php require_once __DIR__ . '/../templates/tables/frontTable.php' ?>
+            <?php require_once __DIR__ . '/../templates/tables/teacherTable.php' ?>
         </section>
 
         <section class="p-separator">
@@ -109,6 +111,10 @@ AuthMiddleware::check();
             <p>Todos os direitos reservados</p>
         </section>
     </main>
+    <script>
+        <?php require_once __DIR__ . '/../../../public/js/logout.js' ?>
+        <?php require_once __DIR__ . '/../../../public/js/main.js' ?>
+    </script>
 </body>
 
 </html>

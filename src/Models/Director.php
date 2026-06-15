@@ -32,7 +32,7 @@ class Director
     }
     public function find($id)
     {
-        $stmt = $this->db->prepare('SELECT * FROM diretor WHERE id_diretor = ?');
+        $stmt = $this->db->prepare('SELECT * FROM diretor WHERE id_usuario = ?');
         $stmt->execute([$id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }

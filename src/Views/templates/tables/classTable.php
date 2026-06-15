@@ -1,5 +1,5 @@
 <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
-<table class="p-table" id="myTable">
+<table class="p-table" id="tabela-turmas">
     <tr class="header">
         <th>#Id</th>
         <th>Turma</th>
@@ -8,16 +8,9 @@
         <th>Deletar</th>
     </tr>
     <tr>
-        <td>1</td>
-        <td>7 º B</td>
-        <td>Ricardo Amado</td>
-        <th><button class="active">Editar</button></th>
-        <th><button class="disabled">Deletar</button></th>
-    </tr>
-    <tr>
-        <td>2</td>
-        <td>8 º B</td>
-        <td>Maximiliano Amadeu</td>
+        <td>Loading....</td>
+        <td>Loading....</td>
+        <td>Loading....</td>
         <th><button class="active">Editar</button></th>
         <th><button class="disabled">Deletar</button></th>
     </tr>

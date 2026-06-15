@@ -41,7 +41,7 @@ class User
 
             Response::json(["message" => "Acesso concedido", "redirect" => $login['tipo_usuario']], 200);
         } else {
-            Response::json(["error" => "Matrícula ou senha inválida", "login" => $login['matricula_usuario'], $login['senha_hash'], "matr" => $matr, "senha" => $senha], 404);
+            Response::json(["error" => "Matrícula ou senha inválida"], 404);
         }
     }
 

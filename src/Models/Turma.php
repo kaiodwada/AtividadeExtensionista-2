@@ -12,7 +12,13 @@ class Turma {
 
     public function all(){
         return $this->db 
-        ->query('SELECT * FROM turma')
+        ->query('SELECT t.id_turma,
+                        t.nomeTurma,
+                        t.id_professor,
+                        p.id_professor,
+                        p.nome
+                 FROM turma as t 
+                 INNER JOIN professor as p ON t.id_professor = p.id_professor')
         ->fetchAll(PDO::FETCH_ASSOC);
     }
 /*
