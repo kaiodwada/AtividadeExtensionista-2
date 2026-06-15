@@ -1,14 +1,3 @@
-/*
-const form = document.getElementById('loginForm')
-
-form.addEventListener('submit', function(event) {
-    event.preventDefault(); // Impede o recarregamento da página
-
-    // Aqui você pode pegar os dados e enviá-los via AJAX/Fetch
-    console.log('Formulário enviado sem refresh!')
-    login()
-})*/
-
 async function login() {
     event.preventDefault();
     /*

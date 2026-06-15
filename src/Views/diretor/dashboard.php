@@ -77,7 +77,7 @@ AuthMiddleware::check();
         <section class="p-separator" id="usuarios"">
             <h1>Criar novo usuario</h1>
         </section>
-        <section class=" settings-form">
+        <section class="settings-form">
             <?php require_once __DIR__ . '/../templates/forms/userForm.php' ?>
             <div>
                 <h2>Padrão de criação de novos usuários</h2>
