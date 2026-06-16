@@ -15,15 +15,19 @@ class Announcement
     {
         return $this->db
             ->query('SELECT c.id_professor, 
+                            c.id_comunicado,
                             c.id_turma, 
                             c.titulo, 
                             c.info_status, 
                             c.texto_comunicado,
                             c.data_envio,
                             p.id_professor,
-                            p.nome
+                            p.nome,
+                            t.nomeTurma,
+                            t.id_turma
                     FROM comunicados as c 
-                    INNER JOIN professor as p ON p.id_professor = c.id_professor')
+                    INNER JOIN professor as p ON p.id_professor = c.id_professor
+                    INNER JOIN turma as t ON t.id_turma = c.id_turma')
             ->fetchAll(PDO::FETCH_ASSOC);
     }
 
@@ -37,12 +41,14 @@ class Announcement
     public function create($data)
     {
         $stmt = $this->db->prepare(
-            'INSERT INTO comunicados (id_professor,id_turma,texto_comunicado) VALUES (?,?,?)'
+            'INSERT INTO comunicados (id_professor,id_turma,texto_comunicado, info_status,titulo) VALUES (?,?,?,?,?)'
         );
         return $stmt->execute([
             $data['id_professor'],
             $data['id_turma'],
-            $data['texto_comunicado']
+            $data['texto_comunicado'],
+            $data['info_status'],
+            $data['titulo']
         ]);
     }
 

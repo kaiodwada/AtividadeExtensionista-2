@@ -29,7 +29,7 @@ class Teacher
     }
     public function find($id)
     {
-        $stmt = $this->db->prepare('SELECT * FROM diretor WHERE id_diretor = ?');
+        $stmt = $this->db->prepare('SELECT * FROM professor WHERE id_professor = ?');
         $stmt->execute([$id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
@@ -50,7 +50,7 @@ class Teacher
     public function update($id, $data)
     {
         $stmt = $this->db->prepare(
-            'UPDATE diretor SET matricula = ?,nome = ?,nivelAcesso = ? WHERE id_diretor = ?'
+            'UPDATE professor SET matricula = ?,nome = ?,nivelAcesso = ? WHERE id_professor = ?'
         );
         return $stmt->execute([
             $data['matricula'],
@@ -62,7 +62,7 @@ class Teacher
 
     public function delete($id)
     {
-        $stmt = $this->db->prepare('DELETE FROM diretor WHERE id_diretor = ?');
+        $stmt = $this->db->prepare('DELETE FROM professor WHERE id_professor = ?');
         return $stmt->execute([$id]);
     }
 
@@ -70,4 +70,6 @@ class Teacher
     {
         $this->db = $connection;
     }
+
+   
 }

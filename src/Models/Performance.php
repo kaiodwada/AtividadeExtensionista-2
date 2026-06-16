@@ -14,7 +14,19 @@ class Performance
     public function all()
     {
         return $this->db
-            ->query('SELECT * FROM desempenhoprovas')
+            ->query('SELECT a.nome,
+                            a.id_aluno,
+                            a.tipoEnsino,
+                            t.nomeTurma,
+                            m.nomeMateria,
+                            dp.nota_primeira_prova,
+                            dp.nota_segunda_prova,
+                            ROUND((dp.nota_primeira_prova + dp.nota_segunda_prova) / 2, 1) AS media_final
+                            FROM desempenhoProvas dp
+                            INNER JOIN Aluno a ON dp.id_aluno = a.id_aluno
+                            INNER JOIN Turma t ON dp.id_turma = t.id_turma
+                            INNER JOIN Materias m ON dp.id_materia = m.id_materia
+                            ORDER BY t.nomeTurma, a.nome, m.nomeMateria;')
             ->fetchAll(PDO::FETCH_ASSOC);
     }
 
