@@ -37,7 +37,8 @@ class User
             $_SESSION['usuario_escola'] = [
                 'id' => $login['id_usuario'],
                 'tipo' => $login['tipo_usuario'],
-                'matr' => $login['matricula_usuario']
+                'matr' => $login['matricula_usuario'],
+                'status_atividade' => $login['status_conta']
             ];
 
             Response::json(["message" => "Acesso concedido", "redirect" => $login['tipo_usuario']], 200);

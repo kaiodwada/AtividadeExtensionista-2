@@ -78,9 +78,6 @@ AuthMiddleware::check();
 
             </table>
         </section>
-        <section class="p-separator" id="turma">
-            <h1>Painel de turmas</h1>
-        </section>
         <section class="p-separator" id="meuPerfil">
             <h1>Meu perfil</h1>
         </section>
@@ -92,6 +89,7 @@ AuthMiddleware::check();
         </section>
         <section class="settings-form">
             <?php require_once __DIR__ . '/../templates/forms/announcementForm.php' ?>
+            <?php require_once __DIR__ . '/../templates/forms/announcementModal.php' ?>
             <div>
                 <h1>Comunicados cadastrados</h1>
                 <?php require_once __DIR__ . '/../templates/tables/announcementTable.php' ?>
@@ -103,6 +101,31 @@ AuthMiddleware::check();
     </main>
     <script src="http://localhost/ProjetoFinal/public/js/logout.js"></script>
     <script>
+        // Variávies globais
+        let objTurmasDashProfessor = []
+        let objAlunosDashProfessor = []
+        let objPerfilDashProfessor = []
+        let objComunicadosDashProfessor = []
+
+        let teste = carregarTeste()
+        /*/let teste = carregarTeste()*/
+
+        async function carregarTeste() {
+            const urlAPIComunicados = 'http://localhost/ProjetoFinal/api/comunicado'
+            try {
+                const response = await fetch(urlAPIComunicados, {
+                    method: 'GET'
+                });
+
+                objComunicadosDashProfessor = await response.json()
+                return objComunicadosDashProfessor
+
+            } catch (erro) {
+                console.error('Falha :', erro)
+                alert('Não foi possível carregar a lista de comunicados.')
+            }
+        }
+
         async function carregarDAlunos() {
             const urlAPIDAlunos = 'http://localhost/ProjetoFinal/api/performance'
             try {
@@ -115,8 +138,7 @@ AuthMiddleware::check();
                 if (!resposta.ok) throw new Error('Erro ao buscar dados da API')
 
                 // 2. Transforma a resposta bruta do servidor em um Objeto/Array Javascript
-                const dAlunos = await resposta.json()
-                console.log(dAlunos)
+                const objAlunosDashProfessor = await resposta.json()
                 // 3. Seleciona o corpo da tabela no HTML
                 const tbody = document.getElementById('tabela-dAlunos')
                 tbody.innerHTML = '' // Limpa a tabela antes de preencher
@@ -125,16 +147,16 @@ AuthMiddleware::check();
                             <th>#Id</th>
                             <th>Nome</th>
                             <th>Tipo de ensino</th>
-                            <th>Presente na turma</th>
+                            <th>Turma</th>
                             <th>Nota 1</th>
                             <th>Nota 2</th>
-                            <th>Média final</th>
+                            <th>Média</th>
                             <th>Desempenho</th>
                         </tr>
                         `
                 // 4. Faz um loop no array de alunos e cria as linhas HTML
 
-                dAlunos.forEach(d => {
+                objAlunosDashProfessor.forEach(d => {
                     const linha = `
                 <tr>
                     <td>${d.id_aluno}</td>
@@ -167,16 +189,16 @@ AuthMiddleware::check();
                 if (!resposta.ok) throw new Error('Erro ao buscar dados da API')
 
                 // 2. Transforma a resposta bruta do servidor em um Objeto/Array Javascript
-                const turmas = await resposta.json()
-                console.log(turmas)
+                const objTurmasDashProfessor = await resposta.json()
+
                 // 3. Seleciona o corpo da tabela no HTML
                 const sbody = document.getElementById('select-turmas')
                 sbody.innerHTML = ''
                 sbody.innerHTML += `<option value="" disabled selected>Turma</option>`
 
-                turmas.forEach(turmas => {
+                objTurmasDashProfessor.forEach(turma => {
                     const option = `
-                        <option value="${turmas.id_turma}">${turmas.nomeTurma}</option>
+                        <option value="${turma.id_turma}">${turma.nomeTurma}</option>
                      `
                     sbody.innerHTML += option
                 });
@@ -192,7 +214,7 @@ AuthMiddleware::check();
             const data = document.getElementById('idPerfil').value
             const tipo = document.getElementById('tipoUsuario').value
             const selectData = document.getElementById('select-status')
-
+            const nameProf = document.getElementById('updName')
             const urlAPIPerfil = `http://localhost/ProjetoFinal/api/meuPerfil/${data}/${tipo}`
 
             try {
@@ -205,17 +227,19 @@ AuthMiddleware::check();
                 if (!resposta.ok) throw new Error('Erro ao buscar dados da API')
 
                 // 2. Transforma a resposta bruta do servidor em um Objeto/Array Javascript
-                const perfil = await resposta.json()
+                const objPerfilDashProfessor = await resposta.json()
+
                 // 3. Seleciona o corpo da tabela no HTML
                 const tbody = document.getElementById('perfilInfo')
                 tbody.innerHTML = '' // Limpa a tabela antes de preencher
                 tbody.innerHTML += `
-            <div class="perfil-info" id="perfilInfo">
-                <h2 class="perfil-nome">${perfil.nome}</h2>
-                <p class="perfil-cargo">Matricula: ${perfil.matricula}</p>
-                <p class="perfil-cargo">Nível de acesso: ${perfil.nivelAcesso}</p>
-            </div>
-        `
+                        <div class="perfil-info" id="perfilInfo">
+                            <h2 class="perfil-nome">${objPerfilDashProfessor.nome}</h2>
+                            <p class="perfil-cargo">Matricula: ${objPerfilDashProfessor.matricula}</p>
+                            <p class="perfil-cargo">Nível de acesso: ${objPerfilDashProfessor.nivelAcesso}</p>
+                        </div>
+                    `
+                nameProf.value = objPerfilDashProfessor.nome
             } catch (erro) {
                 console.error('Erro ao carregar perfil :', erro)
                 alert('Não foi possível carregar perfil.')
@@ -236,10 +260,11 @@ AuthMiddleware::check();
                     throw new Error('Erro ao buscar comunicados')
                 }
                 // 2. Transforma a resposta bruta do servidor em um Objeto/Array Javascript
-                const comunicados = await resposta.json()
+                objComunicadosDashProfessor = await resposta.json()
+
                 // 3. Seleciona o corpo da tabela no HTML
 
-                const container = document.getElementById('tabela-comunicados');
+                const container = document.getElementById('tabela-comunicados')
                 container.innerHTML = ''
                 container.innerHTML += `
                                          <tr class="header">
@@ -248,22 +273,25 @@ AuthMiddleware::check();
                                              <th>Titulo</th>
                                              <th>Status</th>
                                              <th>Data</th> 
+                                             <th>Texto</th>
                                          </tr>
                                      `
-                comunicados.forEach(c => {
+                objComunicadosDashProfessor.forEach(c => {
                     const linha = `
                         <tr>
                             <td>${c.id_comunicado}</td>
                             <td>${c.nomeTurma}</td>
-                            <td>${c.nome}</td>
+                            <td>${c.titulo}</td>
                             <td>${c.info_status}</td>
                             <td>${c.data_envio}</td>   
+                            <td><button  data-id="${c.id_comunicado}" id="openModal" class="active btn-detalhes">Verificar</button></td>
                         </tr>
-                       `;
+                       `
 
                     // Insere a string HTML diretamente no final do container
-                    container.insertAdjacentHTML('beforeend', linha);
-                });
+                    container.insertAdjacentHTML('beforeend', linha)
+                })
+
 
             } catch (erro) {
                 console.error('Falha :', erro)
@@ -286,7 +314,6 @@ AuthMiddleware::check();
                 info_status,
                 titulo
             }
-
             try {
                 const resposta = await fetch(urlAPICCreate, {
                     method: 'POST',
@@ -311,7 +338,6 @@ AuthMiddleware::check();
         document.addEventListener('DOMContentLoaded', carregarComunicados)
         document.getElementById("btnCriar").addEventListener("click", criarComunicado)
     </script>
-
 
 </body>
 
