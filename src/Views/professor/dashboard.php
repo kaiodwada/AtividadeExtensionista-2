@@ -107,25 +107,6 @@ AuthMiddleware::check();
         let objPerfilDashProfessor = []
         let objComunicadosDashProfessor = []
 
-        let teste = carregarTeste()
-        /*/let teste = carregarTeste()*/
-
-        async function carregarTeste() {
-            const urlAPIComunicados = 'http://localhost/ProjetoFinal/api/comunicado'
-            try {
-                const response = await fetch(urlAPIComunicados, {
-                    method: 'GET'
-                });
-
-                objComunicadosDashProfessor = await response.json()
-                return objComunicadosDashProfessor
-
-            } catch (erro) {
-                console.error('Falha :', erro)
-                alert('Não foi possível carregar a lista de comunicados.')
-            }
-        }
-
         async function carregarDAlunos() {
             const urlAPIDAlunos = 'http://localhost/ProjetoFinal/api/performance'
             try {

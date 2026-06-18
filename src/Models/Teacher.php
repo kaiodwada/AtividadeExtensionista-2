@@ -59,6 +59,16 @@ class Teacher
             $id
         ]);
     }
+    public function passUpdate($id, $data)
+    {
+        $stmt = $this->db->prepare(
+            'UPDATE usuarios SET senha_hash = ? WHERE id_usuario = ?'
+        );
+        return $stmt->execute([
+            $data['senha_hash'],
+            $id
+        ]);
+    }
 
     public function delete($id)
     {
@@ -70,6 +80,4 @@ class Teacher
     {
         $this->db = $connection;
     }
-
-   
 }

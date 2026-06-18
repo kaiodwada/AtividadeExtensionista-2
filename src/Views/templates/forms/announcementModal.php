@@ -51,20 +51,19 @@
         <div class="modal-box">
             <button id="closeBtn" class="modal-close">×</button>
 
-            <form id="updateComuForm" name="loginForm" class="login-form createform">
+            <form id="updateComuForm" name="updateComuForm" class="login-form createform">
                 <h1>Alterar comunicado</h1>
-                <input type="text" id="updTxtTituloComu" placeholder="Titulo Comunicado">
-                <select class="select-form" id="select-turmas">
-                    <option value="" disabled selected>Turma</option>
-                    <option value="">Loading.....</option>
+                <hr class="divisor">
+                <input type="hidden" id="updIDcomu" value="">
+                <input type="hidden" id="updIDProfessor" value="">
+                <input type="text" id="updTxtTituloComu" value="">
+                <select class="select-form" id="update-turmas">
                 </select>
-                <select class="select-form" id="urgencia">
-                    <option value="" disabled selected>Selecionar urgência</option>
-                    <option value="informativo">Informativo</option>
-                    <option value="Informativo">Importante</option>
+                <select class="select-form" id="update-urgencia">
+
                 </select>
-                <textarea class="textareaForm" id="updTxtTexto" placeholder="......."></textarea>
-                <button id="btnCriar">Alterar comunicado</button>
+                <textarea class="textareaForm" id="updateTxtTexto"></textarea>
+                <button id="btnAlterarComu" class="botao-salvar">Alterar comunicado</button>
             </form>
 
         </div>
@@ -72,58 +71,108 @@
 
 
     <script>
-        /*
-        const tbody = document.querySelector("#tabela tbody");
+        let tituloComu = document.getElementById('updTxtTituloComu')
+        let turmaComu = document.getElementById('update-turmas')
+        let textoComu = document.getElementById('updateTxtTexto')
+        let btnUpdComu = document.getElementById('btnAlterarComu')
+        let statusComu = document.getElementById('update-urgencia')
+        let id_comunicado = document.getElementById('updIDcomu')
+        let id_professor = document.getElementById('updIDProfessor')
 
-        usuarios.forEach(usuario => {
-            const tr = document.createElement("tr");
-
-            tr.innerHTML = `
-        <td>${usuario.id}</td>
-        <td>${usuario.nome}</td>
-        <td>${usuario.idade}</td>
-        <td>
-            <button class="btn-detalhes" data-id="${usuario.id}">
-                Detalhes
-            </button>
-        </td>
-    `;
-
-            tbody.appendChild(tr);
-        });
-*/
         document.addEventListener("click", (e) => {
             if (e.target.classList.contains("btn-detalhes")) {
                 const id = Number(e.target.dataset.id)
-
-                console.log("ID BTN: ", id)
                 const objComunicado = objComunicadosDashProfessor.find(u => u.id_comunicado === id)
                 constroiModal(objComunicado)
-            }
-
-            if (e.target === modal) {
-                closeModal();
             }
         })
 
         function constroiModal(data) {
-            console.log("ola")
+            //
+            tituloComu.innerHTML = ''
+            turmaComu.innerHTML = ''
+            textoComu.innerHTML = ''
+            statusComu.innerHTML = ''
+            id_professor.value = ''
+            //
+            tituloComu.value = data.titulo
+            turmaComu.innerHTML += `
+                                     <option value="${data.id_turma}" disabled selected>${data.nomeTurma}</option>
+                                     `
+            statusComu.innerHTML += `
+                                     <option value="${data.info_status}" selected>${data.info_status}</option>
+                                    <option value="informativo">Informativo</option>
+                                    <option value="Importante">Importante</option>
+                                     `
+            textoComu.innerHTML = data.texto_comunicado
+            id_comunicado = data.id_comunicado
+            id_professor = data.id_professor
             openModal()
         }
 
-        const modal = document.getElementById("modal");
-        const openBtn = document.getElementById("openModal");
-        const closeBtn = document.getElementById("closeBtn");
+
+        btnUpdComu.addEventListener("click", (e) => {
+            e.preventDefault()
+
+            let titulo = tituloComu.value
+            let id_turma = Number(turmaComu.value)
+            let info_status = statusComu.value
+            let texto_comunicado = textoComu.value
+
+            const values = {
+                id_turma,
+                titulo,
+                info_status,
+                id_professor,
+                texto_comunicado
+            }
+            alterarComunicado(values).then(retorno => {
+                alert("Alteração realizada com sucesso")
+                closeModal()
+                carregarComunicados()
+            }).catch(erro => {
+                console.log("Erro: ", erro)
+            })
+        })
+
+        const modal = document.getElementById("modal")
+        const openBtn = document.getElementById("openModal")
+        const closeBtn = document.getElementById("closeBtn")
+
+        async function alterarComunicado(values) {
+            const urlAPIUpdate = `http://localhost/ProjetoFinal/api/comunicado/${id_comunicado}`
+            try {
+                const response = await fetch(urlAPIUpdate, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(values)
+                })
+                if (!response.ok) {
+                    let mensagemErro = `Erro retornado: ${response.status}`
+                    const retornoServidor = await response.json()
+                    console.log("Retorno: ", retornoServidor)
+                    throw new Error(retornoServidor)
+                }
+                const updateOK = await response.json()
+                return updateOK
+            } catch (error) {
+                console.log(error)
+                alert("Erro ao atualizar comunicado: ", error)
+            }
+
+        }
 
         function openModal() {
-            modal.classList.add("show");
+            modal.classList.add("show")
         }
 
         function closeModal() {
-            modal.classList.remove("show");
+            modal.classList.remove("show")
         }
 
-        closeBtn.addEventListener("click", closeModal);
+        closeBtn.addEventListener("click", closeModal)
     </script>
 
 </body>

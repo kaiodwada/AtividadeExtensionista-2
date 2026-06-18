@@ -98,6 +98,12 @@ if ($uri[0] === 'materia' && $method === 'POST') {
     exit;
 }
 
+if ($uri[0] === 'comunicado' && $method === 'PUT') {
+    $user = new AnnouncementController();
+    $user->update($uri[1]);
+    exit;
+}
+
 if ($uri[0] === 'materia' && $method === 'GET') {
     $user = new MateriaController();
     $user->index();
@@ -117,6 +123,22 @@ if ($uri[0] === 'meuPerfil' && $method === 'GET') {
         case 'Professor':
             $user = new TeacherController();
             $user->show($uri[1]);
+            exit;
+    }
+}
+if ($uri[0] === 'meuPerfil' && $method === 'PUT') {
+    switch ($uri[2]) {
+        case 'Diretor':
+            $user = new DirectorController();
+            $user->show($uri[1]);
+            exit;
+        case 'Aluno':
+            $user = new StudentController();
+            $user->show($uri[1]);
+            exit;
+        case 'Professor':
+            $user = new TeacherController();
+            $user->newPassword($uri[1]);
             exit;
     }
 }

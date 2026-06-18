@@ -101,7 +101,7 @@ class User
     public function update($id, $data)
     {
         $stmt = $this->db->prepare(
-            'UPDATE diretor SET matricula = ?,nome = ?,nivelAcesso = ? WHERE id_diretor = ?'
+            'UPDATE usuarios SET matricula = ?,nome = ?,nivelAcesso = ? WHERE id_diretor = ?'
         );
         return $stmt->execute([
             $data['matricula'],

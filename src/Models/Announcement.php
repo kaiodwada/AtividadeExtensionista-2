@@ -55,9 +55,13 @@ class Announcement
     public function update($id, $data)
     {
         $stmt = $this->db->prepare(
-            'UPDATE comunicados SET texto_comunicado = ? WHERE id_comunicado = ?'
+            'UPDATE comunicados SET id_turma = ?, titulo = ?, id_professor = ? ,info_status = ?, texto_comunicado = ? WHERE id_comunicado = ?'
         );
         return $stmt->execute([
+            $data['id_turma'],
+            $data['titulo'],
+            $data['id_professor'],
+            $data['info_status'],
             $data['texto_comunicado'],
             $id
         ]);

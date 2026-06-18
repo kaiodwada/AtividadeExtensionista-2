@@ -1,14 +1,17 @@
 <?php 
 
 require_once __DIR__ . '/../Models/Teacher.php';
+require_once __DIR__ . '/../Models/User.php';
 require_once __DIR__ . '/../Utils/Response.php';
 
 class TeacherController{
     private $professor;
+    private $user;
 
     public function __construct()
     {
         $this->professor = new Teacher();
+        $this->user = new User();
     }
 
     public function index(){
@@ -44,6 +47,17 @@ class TeacherController{
         }
         $this->professor->update($id, $data);
         Response::json(["message" => "Professor atualizado"]);        
+    }
+
+    public function newPassword($id){
+        $data = json_decode(file_get_contents('php://input'), true);
+
+        if(!$this->user->find($id)){
+            Response::json(["error" => "Professor não encontrado"], 404);
+        }
+        $this->professor->passUpdate($id, $data);
+
+        Response::json(["message" => "Professor atualizado"]);   
     }
 
     public function destroy($id){
