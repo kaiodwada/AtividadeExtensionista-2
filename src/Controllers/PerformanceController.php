@@ -11,8 +11,8 @@ class PerformanceController{
         $this->performance = new Performance();
     }
 
-    public function index(){
-        Response::json($this->performance->all());
+    public function index($id){
+        Response::json($this->performance->all($id));
     }
 
     public function show($id){

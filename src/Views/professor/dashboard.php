@@ -75,7 +75,7 @@ AuthMiddleware::check();
                     <td class="active">Loading.....</td>
                     <th><button class="active">Loading.....</button></th>
                 </tr>
-
+                <?php require_once __DIR__ . '/../templates/forms/studentModal.php'?>
             </table>
         </section>
         <section class="p-separator" id="meuPerfil">
@@ -106,9 +106,9 @@ AuthMiddleware::check();
         let objAlunosDashProfessor = []
         let objPerfilDashProfessor = []
         let objComunicadosDashProfessor = []
-
-        async function carregarDAlunos() {
-            const urlAPIDAlunos = 'http://localhost/ProjetoFinal/api/performance'
+        let id_atual = document.getElementById('idPerfil').value
+        async function carregarDAlunos(id_atual) {
+            const urlAPIDAlunos = `http://localhost/ProjetoFinal/api/updateDesempenho/${id_atual}`
             try {
                 // 1. Faz a requisição assíncrona (espera a resposta do servidor)
                 const resposta = await fetch(urlAPIDAlunos, {
@@ -140,14 +140,14 @@ AuthMiddleware::check();
                 objAlunosDashProfessor.forEach(d => {
                     const linha = `
                 <tr>
-                    <td>${d.id_aluno}</td>
+                    <td id="id-aluno">${d.id_aluno}</td>
                     <td>${d.nome}</td>
                     <td>${d.tipoEnsino}</td>
                     <td>${d.nomeTurma}</td>
                     <td>${d.nota_primeira_prova}</td>
                     <td>${d.nota_segunda_prova}</td>
-                    <td>${d.media_final}</td>
-                    <td><button class="active">Verificar</button></td>
+                    <td>${d.media_atual}</td>
+                    <td><button id="openStudentModal" data-id="${d.id_aluno}" class="active btn-desempenho">Verificar</button></td>
                 </tr>
             `
                     tbody.innerHTML += linha
@@ -313,7 +313,7 @@ AuthMiddleware::check();
                 console.error('Falha ao criar comunicado: ', erro)
             }
         }
-        document.addEventListener('DOMContentLoaded', carregarDAlunos)
+        document.addEventListener('DOMContentLoaded', carregarDAlunos(id_atual))
         document.addEventListener('DOMContentLoaded', carregarTurmaSelect)
         document.addEventListener('DOMContentLoaded', carregarPerfil)
         document.addEventListener('DOMContentLoaded', carregarComunicados)

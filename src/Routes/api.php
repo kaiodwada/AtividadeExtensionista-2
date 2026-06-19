@@ -72,12 +72,14 @@ if ($uri[0] === 'performance' && $method === 'POST') {
 
 if ($uri[0] === 'performance' && $method === 'GET') {
     $user = new PerformanceController();
-    if (isset($uri[1])) {
-        $user->show($uri[1]);
-    } else {
-        $user->index();
-        exit;        
-    }
+    $user->show($uri[1]);
+    exit;
+}
+
+if ($uri[0] === 'updateDesempenho' && $method === 'GET') {
+    $user = new PerformanceController();
+    $user->index($uri[1]);
+    exit;        
 }
 
 if ($uri[0] === 'comunicado' && $method === 'POST') {

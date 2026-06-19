@@ -51,7 +51,7 @@ if ($statusDaConta === 1) {
         let updPass1 = document.getElementById('updPass1').value.trim()
         let updPass2 = document.getElementById('updPass2').value.trim()
         let tipo = document.getElementById('tipoUsuario').value
-        let id_professor = document.getElementById('idPerfil').value
+        let id = document.getElementById('idPerfil').value
 
         if (updPass1 === '' || updPass2 === '') {
             alert('Ambos os campos de senha devem ser preenchidos!')
@@ -66,7 +66,7 @@ if ($statusDaConta === 1) {
 
         const data = {
             senha_hash,
-            id_professor,
+            id,
             tipo
         }
         alterarPerfil(data).then( retorno =>{
@@ -77,7 +77,7 @@ if ($statusDaConta === 1) {
     })
 
     async function alterarPerfil(data) {
-        const urlAPIUpdate = `http://localhost/ProjetoFinal/api/meuPerfil/${data.id_professor}/${data.tipo}`
+        const urlAPIUpdate = `http://localhost/ProjetoFinal/api/meuPerfil/${data.id}/${data.tipo}`
 
         try {
             const response = await fetch(urlAPIUpdate, {
