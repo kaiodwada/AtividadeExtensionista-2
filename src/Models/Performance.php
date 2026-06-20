@@ -14,24 +14,14 @@ class Performance
     public function all($id)
     {
         $stmt = $this->db
-            ->prepare('SELECT p.nome,
-                              t.nomeTurma,
-                              m.nomeMateria,
-                              a.matricula,
-                              a.id_aluno,
-                              a.tipoEnsino,
-                              a.nome,
-                              dp.nota_primeira_prova,
-                              dp.nota_segunda_prova,
-                            ROUND((dp.nota_primeira_prova + dp.nota_segunda_prova) / 2, 1) AS media_atual
-                            FROM Professor p
-                            INNER JOIN turma t ON t.id_professor = p.id_professor
-                            INNER JOIN aluno a ON a.id_turma = t.id_turma
-                            INNER JOIN materias m ON m.id_professor = p.id_professor
-                            LEFT JOIN desempenhoProvas dp ON dp.id_aluno = a.id_aluno AND dp.id_materia = m.id_materia
-                            WHERE p.id_usuario = ?');
-            $stmt->execute([$id]);
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            ->prepare('SELECT *, ROUND((d.nota_primeira_prova + d.nota_segunda_prova) / 2, 1) AS media_atual
+                                FROM desempenhoprovas d 
+                                INNER JOIN aluno a ON a.id_aluno = d.id_aluno
+                                INNER JOIN materias m ON m.id_materia = d.id_materia
+                                INNER JOIN turma t ON t.id_turma = d.id_turma
+                                INNER JOIN usuarios u ON u.id_usuario = ?');
+        $stmt->execute([$id]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function find($id)

@@ -29,7 +29,13 @@ class Teacher
     }
     public function find($id)
     {
-        $stmt = $this->db->prepare('SELECT * FROM professor WHERE id_usuario = ?');
+        $stmt = $this->db->prepare('SELECT p.id_professor,
+                                           p.matricula,
+                                           p.nome,
+                                           p.nivelAcesso
+                                         FROM professor p 
+                                         INNER JOIN usuarios u ON u.id_usuario = p.id_usuario
+                                         WHERE p.id_usuario = ?');
         $stmt->execute([$id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }

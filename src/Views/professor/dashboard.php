@@ -75,7 +75,7 @@ AuthMiddleware::check();
                     <td class="active">Loading.....</td>
                     <th><button class="active">Loading.....</button></th>
                 </tr>
-                <?php require_once __DIR__ . '/../templates/forms/studentModal.php'?>
+                <?php require_once __DIR__ . '/../templates/forms/studentModal.php' ?>
             </table>
         </section>
         <section class="p-separator" id="meuPerfil">
@@ -107,52 +107,53 @@ AuthMiddleware::check();
         let objPerfilDashProfessor = []
         let objComunicadosDashProfessor = []
         let id_atual = document.getElementById('idPerfil').value
+        
         async function carregarDAlunos(id_atual) {
             const urlAPIDAlunos = `http://localhost/ProjetoFinal/api/updateDesempenho/${id_atual}`
             try {
-                // 1. Faz a requisição assíncrona (espera a resposta do servidor)
                 const resposta = await fetch(urlAPIDAlunos, {
                     method: 'GET'
-                });
+                })
 
-                // Se a API der erro (ex: 404 ou 500), joga para o bloco catch
-                if (!resposta.ok) throw new Error('Erro ao buscar dados da API')
+                if (!resposta.ok) {
+                    let mensagemErro = `Erro retornado: ${resposta.status}`
+                    const retornoServidor = await resposta.json()
+                    console.log("Retorno: ", retornoServidor)
+                    throw new Error(retornoServidor)
+                }
 
-                // 2. Transforma a resposta bruta do servidor em um Objeto/Array Javascript
-                const objAlunosDashProfessor = await resposta.json()
-                // 3. Seleciona o corpo da tabela no HTML
+                objAlunosDashProfessor = await resposta.json()
                 const tbody = document.getElementById('tabela-dAlunos')
-                tbody.innerHTML = '' // Limpa a tabela antes de preencher
+                tbody.innerHTML = '' 
                 tbody.innerHTML += `
                         <tr class="header">
-                            <th>#Id</th>
                             <th>Nome</th>
                             <th>Tipo de ensino</th>
                             <th>Turma</th>
+                            <th>Matéria</th>
                             <th>Nota 1</th>
                             <th>Nota 2</th>
                             <th>Média</th>
                             <th>Desempenho</th>
                         </tr>
                         `
-                // 4. Faz um loop no array de alunos e cria as linhas HTML
 
-                objAlunosDashProfessor.forEach(d => {
+                objAlunosDashProfessor.forEach((d) => {
                     const linha = `
                 <tr>
-                    <td id="id-aluno">${d.id_aluno}</td>
                     <td>${d.nome}</td>
                     <td>${d.tipoEnsino}</td>
                     <td>${d.nomeTurma}</td>
+                    <td>${d.nomeMateria}</td>
                     <td>${d.nota_primeira_prova}</td>
                     <td>${d.nota_segunda_prova}</td>
                     <td>${d.media_atual}</td>
-                    <td><button id="openStudentModal" data-id="${d.id_aluno}" class="active btn-desempenho">Verificar</button></td>
+                    <td><button id="openStudentModal" data-id="${d.id_desempenho}" class="active btn-desempenho">Verificar</button></td>
                 </tr>
             `
                     tbody.innerHTML += linha
                 })
-
+                return objAlunosDashProfessor
             } catch (erro) {
                 console.error('Falha :', erro)
                 alert('Não foi possível carregar a lista de alunos.')
@@ -313,9 +314,14 @@ AuthMiddleware::check();
                 console.error('Falha ao criar comunicado: ', erro)
             }
         }
-        document.addEventListener('DOMContentLoaded', carregarDAlunos(id_atual))
-        document.addEventListener('DOMContentLoaded', carregarTurmaSelect)
+
         document.addEventListener('DOMContentLoaded', carregarPerfil)
+        document.addEventListener('DOMContentLoaded', carregarDAlunos(id_atual).then(objAlunosDashProfessor => {
+            console.log("Sucesso: ", objAlunosDashProfessor)
+        }).catch(erro => {
+            console.log("Falha: ", erro)
+        }))
+        document.addEventListener('DOMContentLoaded', carregarTurmaSelect)
         document.addEventListener('DOMContentLoaded', carregarComunicados)
         document.getElementById("btnCriar").addEventListener("click", criarComunicado)
     </script>
