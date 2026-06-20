@@ -20,6 +20,10 @@ class UserController{
         Response::json($this->user->all());
     }
 
+    public function returnTeacher($id){
+        return $this->user->returnTeacher($id);
+    }
+
     public function show($id){
         $user = $this->user->find($id);
 

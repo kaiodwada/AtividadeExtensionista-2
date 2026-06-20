@@ -11,10 +11,10 @@ class Announcement
         $this->db = Database::connect();
     }
 
-    public function all()
+    public function all($id)
     {
-        return $this->db
-            ->query('SELECT c.id_professor, 
+        $stmt = $this->db
+            ->prepare('SELECT c.id_professor, 
                             c.id_comunicado,
                             c.id_turma, 
                             c.titulo, 
@@ -27,8 +27,11 @@ class Announcement
                             t.id_turma
                     FROM comunicados as c 
                     INNER JOIN professor as p ON p.id_professor = c.id_professor
-                    INNER JOIN turma as t ON t.id_turma = c.id_turma')
-            ->fetchAll(PDO::FETCH_ASSOC);
+                    INNER JOIN usuarios as u ON u.id_usuario = p.id_usuario
+                    INNER JOIN turma as t ON t.id_turma = c.id_turma
+                    WHERE u.id_usuario = ?');
+        $stmt->execute([$id]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function find($id)
@@ -51,6 +54,8 @@ class Announcement
             $data['titulo']
         ]);
     }
+    
+    
 
     public function update($id, $data)
     {

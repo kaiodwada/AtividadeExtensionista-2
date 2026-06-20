@@ -231,8 +231,9 @@ AuthMiddleware::check();
         }
 
         // Função assíncrona para buscar as materias
-        async function carregarComunicados() {
-            const urlAPIComunicados = 'http://localhost/ProjetoFinal/api/comunicado'
+        async function carregarComunicados(id_atual) {
+            console.log("Id para criar o comunicado: ",id_atual)
+            const urlAPIComunicados = `http://localhost/ProjetoFinal/api/comunicado/${id_atual}`
             try {
                 // 1. Faz a requisição assíncrona (espera a resposta do servidor)
                 const resposta = await fetch(urlAPIComunicados, {
@@ -324,7 +325,11 @@ AuthMiddleware::check();
             console.log("Falha: ", erro)
         }))
         document.addEventListener('DOMContentLoaded', carregarTurmaSelect)
-        document.addEventListener('DOMContentLoaded', carregarComunicados)
+        document.addEventListener('DOMContentLoaded', carregarComunicados(id_atual).then(objComunicadosDashProfessor => {
+            console.log("sucessso")
+        }).catch(erro => {
+            console.log("Falha:", erro)
+        }))
         document.getElementById("btnCriar").addEventListener("click", criarComunicado)
     </script>
 

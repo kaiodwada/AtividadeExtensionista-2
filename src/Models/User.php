@@ -31,7 +31,7 @@ class User
         $login = $stmt->fetch(PDO::FETCH_ASSOC);
         //if ($matr === $login['matricula_usuario'] && password_verify($senha, $login['senha_hash'])) {
         if ($senha === $login['senha_hash']) {
-            if ($login['status_conta'] !== 1) { 
+            if ($login['status_conta'] !== 1) {
                 return Response::json(["error" => "Esta conta está desativada."], 403);
             }
             if (session_status() === PHP_SESSION_NONE) {
@@ -111,6 +111,15 @@ class User
             $data['nivelAcesso'],
             $id
         ]);
+    }
+
+    public function returnTeacher($id)
+    {
+        $stmt = $this->db->prepare('SELECT p.id_professor FROM usuarios as c
+                                    INNER JOIN professor as p ON p.id_usuario = c.id_usuario
+                                    WHERE c.id_usuario = ?');
+        $stmt->execute([$id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     public function delete($id)

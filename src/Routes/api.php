@@ -95,7 +95,7 @@ if ($uri[0] === 'comunicado' && $method === 'POST') {
 
 if ($uri[0] === 'comunicado' && $method === 'GET') {
     $user = new AnnouncementController();
-    $user->index();
+    $user->index($uri[1]);
     exit;
 }
 
