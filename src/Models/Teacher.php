@@ -35,7 +35,7 @@ class Teacher
                                            p.nivelAcesso
                                          FROM professor p 
                                          INNER JOIN usuarios u ON u.id_usuario = p.id_usuario
-                                         WHERE p.id_usuario = ?');
+                                         WHERE u.id_usuario = ?');
         $stmt->execute([$id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }

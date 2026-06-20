@@ -30,7 +30,10 @@ class User
         $stmt->execute(['id' => $matr]);
         $login = $stmt->fetch(PDO::FETCH_ASSOC);
         //if ($matr === $login['matricula_usuario'] && password_verify($senha, $login['senha_hash'])) {
-        if ($matr === $login['matricula_usuario'] && $senha === $login['senha_hash']) {
+        if ($senha === $login['senha_hash']) {
+            if ($login['status_conta'] !== 1) { 
+                return Response::json(["error" => "Esta conta está desativada."], 403);
+            }
             if (session_status() === PHP_SESSION_NONE) {
                 session_start();
             }
@@ -40,10 +43,9 @@ class User
                 'matr' => $login['matricula_usuario'],
                 'status_atividade' => $login['status_conta']
             ];
-
             Response::json(["message" => "Acesso concedido", "redirect" => $login['tipo_usuario']], 200);
         } else {
-            Response::json(["error" => "Matrícula ou senha inválida"], 404);
+            Response::json(["error" => "Matrícula ou senha inválida"], 401);
         }
     }
 

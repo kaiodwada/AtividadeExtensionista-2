@@ -19,7 +19,7 @@ class PerformanceController{
         $performance = $this->performance->find($id);
 
         if(!$performance){
-            Response::json(["error" => "Performance não encontrada"], 404);
+            Response::json(["error" => "Performance não encontrada"], 401);
         }
 
         Response::json($performance);
@@ -39,19 +39,19 @@ class PerformanceController{
     public function update($id){
         $data = json_decode(file_get_contents('php://input'), true);
 
-        if(!$this->performance->find($id)){
-            Response::json(["error" => "Performance não encontrada"], 404);
+        if(!$this->performance->returnOne($id)){
+            Response::json(["error" => "Performance não encontrada"], 401);
         }
         $this->performance->update($id, $data);
-        Response::json(["message" => "Performance atualizada"]);        
+        Response::json(["message" => "Performance atualizada"], 200);        
     }
 
     public function destroy($id){
-        if(!$this->performance->find($id)){
-            Response::json(["message" => "Performance não encontrada"], 404);
+        if(!$this->performance->returnOne($id)){
+            Response::json(["message" => "Performance não encontrada"], 401);
         }
 
         $this->performance->delete($id);
-        Response::json(["message" => "Performance removida com sucesso"]);
+        Response::json(["message" => "Performance removida com sucesso"], 200);
     }
 }

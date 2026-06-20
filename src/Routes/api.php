@@ -75,6 +75,11 @@ if ($uri[0] === 'performance' && $method === 'GET') {
     $user->show($uri[1]);
     exit;
 }
+if ($uri[0] === 'performance' && $method === 'PUT') {
+    $user = new PerformanceController();
+    $user->update($uri[1]);
+    exit;
+}
 
 if ($uri[0] === 'updateDesempenho' && $method === 'GET') {
     $user = new PerformanceController();

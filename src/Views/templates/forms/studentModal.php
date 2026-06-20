@@ -55,13 +55,14 @@
             <form id="updDesempenho" name="updDesempenho" class="login-form createform">
                 <h1>Painel de desempenho</h1>
                 <hr class="divisor">
+                <input type="hidden" id="alunoIdDesempenho" value="">
                 <input type="text" id="alunoNome" value="" disabled>
                 <input type="text" id="alunoTpEnsino" value="" disabled>
                 <input type="text" id="alunoTurma" value="" disabled>
 
                 <input type="text" id="alunoNota1" value="">
                 <input type="text" id="alunoNota2" value="">
-                <button id="btnAlterarComu" class="botao-salvar">Adicionar notas comunicado</button>
+                <button id="btnAlterarNotas" class="botao-salvar">Fazer manutenção</button>
             </form>
 
         </div>
@@ -69,30 +70,31 @@
 
 
     <script>
+        let nome = document.getElementById('alunoNome')
+        let ensino = document.getElementById('alunoTpEnsino')
+        let turma = document.getElementById('alunoTurma')
+        let nota1 = document.getElementById('alunoNota1')
+        let nota2 = document.getElementById('alunoNota2')
+        let id_nota = document.getElementById('alunoIdDesempenho')
+        let btnAlterarNotas = document.getElementById('btnAlterarNotas')
+
         document.addEventListener("click", (e) => {
             if (e.target.classList.contains("btn-desempenho")) {
                 const id = Number(e.target.dataset.id)
-                console.log("Teste id: ", id)
-                console.log("teste de objeto: ", objAlunosDashProfessor)
                 const objAluno = objAlunosDashProfessor.find(u => u.id_desempenho === id)
-                console.log(objAluno)
                 constroiStudentModal(objAluno)
             }
         })
 
         function constroiStudentModal(data) {
-            let nome = document.getElementById('alunoNome')
-            let ensino = document.getElementById('alunoTpEnsino')
-            let turma = document.getElementById('alunoTurma')
-            let nota1 = document.getElementById('alunoNota1')
-            let nota2 = document.getElementById('alunoNota2')
-
+            id_nota.value = ''
             nome.value = ''
             ensino.value = ''
             turma.value = ''
             nota1.value = ''
             nota2.value = ''
 
+            id_nota.value = data.id_desempenho
             nome.value = data.nome
             ensino.value = data.tipoEnsino
             turma.value = data.nomeTurma
@@ -102,44 +104,38 @@
             openStudentModal()
         }
 
-        /*
-                btnUpdComu.addEventListener("click", (e) => {
-                    e.preventDefault()
+        btnAlterarNotas.addEventListener("click", (e) => {
+            e.preventDefault()
+            let nota_primeira_prova = nota1.value
+            let nota_segunda_prova = nota2.value
+            let id_desempenho = id_nota.value
 
-                    let titulo = tituloComu.value
-                    let id_turma = Number(turmaComu.value)
-                    let info_status = statusComu.value
-                    let texto_comunicado = textoComu.value
+            const notas = {
+                nota_primeira_prova,
+                nota_segunda_prova
+            }
+            alterarDesempenho(id_desempenho, notas).then(retorno => {
+                alert("Manutenção nas notas concluída")
+                carregarDAlunos(id_atual)
+                closeStudentModal()
+            }).catch(erro => {
+                console.log("Erro: ", erro)
+            })
+        })
 
-                    const values = {
-                        id_turma,
-                        titulo,
-                        info_status,
-                        id_professor,
-                        texto_comunicado
-                    }
-                    alterarComunicado(values).then(retorno => {
-                        alert("Alteração realizada com sucesso")
-                        closeModal()
-                        carregarComunicados()
-                    }).catch(erro => {
-                        console.log("Erro: ", erro)
-                    })
-                })
-        */
         const studentModal = document.getElementById("StudentModal")
         const openStudentBtn = document.getElementById("openStudentModal")
         const closeStudentBtn = document.getElementById("closeStudentBtn")
 
-        async function alterarDesempenho(id, values) {
-            const urlAPIUpdate = `http://localhost/ProjetoFinal/api/updateDesempenho/${id_aluno}`
+        async function alterarDesempenho(id, notas) {
+            const urlAPIUpdate = `http://localhost/ProjetoFinal/api/performance/${id}`
             try {
                 const response = await fetch(urlAPIUpdate, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify(values)
+                    body: JSON.stringify(notas)
                 })
                 if (!response.ok) {
                     let mensagemErro = `Erro retornado: ${response.status}`
@@ -151,9 +147,8 @@
                 return updateOK
             } catch (error) {
                 console.log(error)
-                alert("Erro ao atualizar comunicado: ", error)
+                alert("Erro ao atualizar desempenho: ", error)
             }
-
         }
 
         function openStudentModal() {

@@ -127,6 +127,7 @@ AuthMiddleware::check();
                 tbody.innerHTML = '' 
                 tbody.innerHTML += `
                         <tr class="header">
+                            <th>#ID</th>
                             <th>Nome</th>
                             <th>Tipo de ensino</th>
                             <th>Turma</th>
@@ -141,6 +142,7 @@ AuthMiddleware::check();
                 objAlunosDashProfessor.forEach((d) => {
                     const linha = `
                 <tr>
+                    <td>${d.id_desempenho}</id>
                     <td>${d.nome}</td>
                     <td>${d.tipoEnsino}</td>
                     <td>${d.nomeTurma}</td>

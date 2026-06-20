@@ -38,6 +38,13 @@ class Performance
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function returnOne($id){
+                $stmt = $this->db->prepare('SELECT * from desempenhoprovas 
+                                            WHERE id_desempenho = ?');
+        $stmt->execute([$id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
     public function create($data)
     {
         $stmt = $this->db->prepare(
@@ -54,9 +61,10 @@ class Performance
     public function update($id, $data)
     {
         $stmt = $this->db->prepare(
-            'UPDATE desempenhoprovas SET nota_segunda_prova = ? WHERE id_desempenho = ?'
+            'UPDATE desempenhoprovas SET nota_primeira_prova = ?, nota_segunda_prova = ? WHERE id_desempenho = ?'
         );
         return $stmt->execute([
+            $data['nota_primeira_prova'],
             $data['nota_segunda_prova'],
             $id
         ]);
