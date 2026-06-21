@@ -23,7 +23,9 @@ class UserController{
     public function returnTeacher($id){
         return $this->user->returnTeacher($id);
     }
-
+    public function returnStudent($id){
+         return $this->user->returnStudent($id);
+    }
     public function show($id){
         $user = $this->user->find($id);
 

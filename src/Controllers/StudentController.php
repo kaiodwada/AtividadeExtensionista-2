@@ -1,32 +1,62 @@
-<?php 
+<?php
 
 require_once __DIR__ . '/../Models/Student.php';
 require_once __DIR__ . '/../Utils/Response.php';
+require_once __DIR__ . '/UserController.php' ;
 
-class StudentController{
+class StudentController
+{
     private $student;
+    private $user;
 
     public function __construct()
     {
         $this->student = new Student();
+        $this->user = new UserController();
     }
 
-    public function index(){
+    public function index()
+    {
         Response::json($this->student->all());
     }
 
-    public function show($id){
+    public function show($id)
+    {
         $student = $this->student->find($id);
-        if(!$student){
+        if (!$student) {
             Response::json(["error" => "Aluno não encontrado"], 404);
         }
         Response::json($student);
     }
 
-    public function store($data, $user_id){
+    public function returnIdAluno($id)
+    {
+        return $this->user->returnStudent($id);
+    }
+    public function returnAnnoun($id)
+    {
+        $id_aluno = $this->returnIdAluno($id);
+        
+        if($id_aluno){
+            $id = $id_aluno['id_aluno'];
+        } else{
+            Response::json(["error" => "Aluno não encontrado",], 401);
+        }
+
+        $comunicados = $this->student->returnAnnoun($id);
+
+        if (!$comunicados) {
+            Response::json(["Response" => "Sem comunicados"], 401);
+        }
+
+        Response::json($comunicados);
+    }
+
+    public function store($data, $user_id)
+    {
         //$data = json_decode(file_get_contents('php://input'), true);
 
-        if (!$data || empty($data['matricula']) || empty($data['nome']) || empty($data['nivelAcesso']) || empty($user_id)){
+        if (!$data || empty($data['matricula']) || empty($data['nome']) || empty($data['nivelAcesso']) || empty($user_id)) {
             Response::json(['error' => "Dados inválidos"], 400);
         }
 
@@ -34,18 +64,20 @@ class StudentController{
         Response::json(["message" => "Aluno cadastrado com sucesso"], 201);
     }
 
-    public function update($id){
+    public function update($id)
+    {
         $data = json_decode(file_get_contents('php://input'), true);
 
-        if(!$this->student->find($id)){
+        if (!$this->student->find($id)) {
             Response::json(["error" => "Aluno não encontrado"], 404);
         }
         $this->student->update($id, $data);
-        Response::json(["message" => "Aluno atualizado"]);        
+        Response::json(["message" => "Aluno atualizado"]);
     }
 
-    public function destroy($id){
-        if(!$this->student->find($id)){
+    public function destroy($id)
+    {
+        if (!$this->student->find($id)) {
             Response::json(["message" => "Aluno não encontrado"], 404);
         }
 

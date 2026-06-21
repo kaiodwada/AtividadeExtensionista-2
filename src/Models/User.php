@@ -122,6 +122,15 @@ class User
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    public function returnStudent($id)
+    {
+        $stmt = $this->db->prepare('SELECT a.id_aluno FROM usuarios as c
+                                    INNER JOIN aluno as a ON a.id_usuario = c.id_usuario
+                                    WHERE c.id_usuario = ?');
+        $stmt->execute([$id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
     public function delete($id)
     {
         $stmt = $this->db->prepare('DELETE FROM diretor WHERE id_diretor = ?');

@@ -13,13 +13,20 @@ class Performance
 
     public function all($id)
     {
-        $stmt = $this->db
-            ->prepare('SELECT *, ROUND((d.nota_primeira_prova + d.nota_segunda_prova) / 2, 1) AS media_atual
+        $stmt = $this->db->prepare('SELECT d.id_desempenho,
+	                                       a.nome,
+                                           a.tipoEnsino,
+                                           t.nomeTurma,
+                                           m.nomeMateria,
+                                           d.nota_primeira_prova,
+                                           d.nota_segunda_prova,
+                                           ROUND((d.nota_primeira_prova + d.nota_segunda_prova) / 2, 1) AS media_atual
                                 FROM desempenhoprovas d 
                                 INNER JOIN aluno a ON a.id_aluno = d.id_aluno
                                 INNER JOIN materias m ON m.id_materia = d.id_materia
                                 INNER JOIN turma t ON t.id_turma = d.id_turma
-                                INNER JOIN usuarios u ON u.id_usuario = ?');
+                                INNER JOIN professor p ON p.id_professor = m.id_professor
+                                WHERE p.id_professor = ?');
         $stmt->execute([$id]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }

@@ -25,7 +25,7 @@ class Student
     {
         if (
             !$data || empty($data['matricula']) || empty($data['nome']) || empty($data['idade']) || empty($data['tipoEnsino']) || empty($data['nivelAcesso'])
-            || empty($data['status_conta']|| empty($data['id_turma']))
+            || empty($data['status_conta'] || empty($data['id_turma']))
         ) {
             Response::json(['error' => "Falta dados para criar aluno"], 400);
         }
@@ -89,6 +89,22 @@ class Student
     {
         $stmt = $this->db->prepare('DELETE FROM diretor WHERE id_diretor = ?');
         return $stmt->execute([$id]);
+    }
+
+    public function returnAnnoun($id)
+    {
+        $stmt = $this->db->prepare('SELECT c.titulo,
+                                           c.info_status, 
+                	                       c.texto_comunicado,
+                                           c.data_envio,
+                                           p.nome
+                                    FROM comunicados as c
+                                    INNER JOIN aluno a ON a.id_turma = c.id_turma
+                                    INNER JOIN turma t ON t.id_turma = c.id_turma
+                                    INNER JOIN professor p ON p.id_professor = c.id_professor
+                                    WHERE a.id_aluno = ?');
+        $stmt->execute([$id]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function setConnection($connection)

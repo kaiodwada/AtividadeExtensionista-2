@@ -74,6 +74,7 @@ AuthMiddleware::check();
         </section>
     </main>
     <script>
+        const id_atual = document.getElementById('idPerfil').value
         async function logout() {
             event.preventDefault();
             const urlAPILogout = 'http://localhost/ProjetoFinal/api/logout'
@@ -138,7 +139,7 @@ AuthMiddleware::check();
         }
         // Função assíncrona para buscar as materias
         async function carregarComunicados() {
-            const urlAPIComunicados = 'http://localhost/ProjetoFinal/api/comunicado'
+            const urlAPIComunicados = `http://localhost/ProjetoFinal/api/alunoComunicados/${id_atual}`
             try {
                 // 1. Faz a requisição assíncrona (espera a resposta do servidor)
                 const resposta = await fetch(urlAPIComunicados, {

@@ -98,16 +98,15 @@ if ($uri[0] === 'comunicado' && $method === 'GET') {
     $user->index($uri[1]);
     exit;
 }
+if ($uri[0] === 'comunicado' && $method === 'PUT') {
+    $user = new AnnouncementController();
+    $user->update($uri[1]);
+    exit;
+}
 
 if ($uri[0] === 'materia' && $method === 'POST') {
     $user = new MateriaController();
     $user->store();
-    exit;
-}
-
-if ($uri[0] === 'comunicado' && $method === 'PUT') {
-    $user = new AnnouncementController();
-    $user->update($uri[1]);
     exit;
 }
 
@@ -121,8 +120,11 @@ if ($uri[0] === 'materias' && $method === 'GET') {
     $user->showSubjects($uri[1]);
     exit;
 }
-
-
+if ($uri[0] === 'alunoComunicados' && $method === 'GET') {
+    $user = new StudentController();
+    $user->returnAnnoun($uri[1]);
+    exit;
+}
 
 if ($uri[0] === 'meuPerfil' && $method === 'GET') {
     switch ($uri[2]) {
