@@ -5,7 +5,7 @@
         <th>Turma</th>
         <th>Titulo</th>
         <th>Status</th>
-        <th>Data</th> 
+        <th>Data</th>
     </tr>
     <tr>
         <td>Loading....</td>
@@ -15,3 +15,4 @@
         <td>Loading....</td>
     </tr>
 </table>
+

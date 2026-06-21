@@ -116,6 +116,13 @@ if ($uri[0] === 'materia' && $method === 'GET') {
     $user->index();
     exit;
 }
+if ($uri[0] === 'materias' && $method === 'GET') {
+    $user = new TeacherController();
+    $user->showSubjects($uri[1]);
+    exit;
+}
+
+
 
 if ($uri[0] === 'meuPerfil' && $method === 'GET') {
     switch ($uri[2]) {

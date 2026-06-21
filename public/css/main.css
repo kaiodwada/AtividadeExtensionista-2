@@ -524,3 +524,22 @@ tr:nth-child(even) {
 }
 
 /*Fim updateProfile*/
+
+/*PAGINAÇÃO*/
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  list-style: none; /* remove list bullets */
+  padding: 10px;
+}
+
+.pagination li a {
+  display: block; /* let links fill the list item */
+  padding: 8px 12px;
+  text-decoration: none;
+  border: 1px solid gray;
+  color: black;  
+  margin: 0 4px;
+  border-radius: 5px; /* add rounded borders */
+}

@@ -42,6 +42,7 @@
             background: none;
             cursor: pointer;
         }
+
     </style>
 </head>
 
@@ -60,7 +61,7 @@
                 <input type="text" id="alunoTpEnsino" value="" disabled>
                 <input type="text" id="alunoTurma" value="" disabled>
 
-                <input type="text" id="alunoNota1" value="">
+                <input type="text" class="tste" id="alunoNota1" value="">
                 <input type="text" id="alunoNota2" value="">
                 <button id="btnAlterarNotas" class="botao-salvar">Fazer manutenção</button>
             </form>

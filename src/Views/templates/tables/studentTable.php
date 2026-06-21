@@ -22,5 +22,4 @@
         <td class="active">Loading.....</td>
         <th><button class="active">Loading.....</button></th>
     </tr>
-
 </table>

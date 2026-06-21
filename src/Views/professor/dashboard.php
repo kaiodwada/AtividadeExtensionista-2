@@ -75,14 +75,41 @@ AuthMiddleware::check();
                     <td class="active">Loading.....</td>
                     <th><button class="active">Loading.....</button></th>
                 </tr>
-                <?php require_once __DIR__ . '/../templates/forms/studentModal.php' ?>
+
             </table>
+            <div class="paginacao">
+                <button id="btnAnterior">
+                    Anterior
+                </button>
+
+                <span id="pagina">
+                    1 / 1
+                </span>
+
+                <button id="btnProxima">
+                    Próxima
+                </button>
+            </div>
+            <?php require_once __DIR__ . '/../templates/forms/studentModal.php' ?>
         </section>
         <section class="p-separator" id="meuPerfil">
             <h1>Meu perfil</h1>
         </section>
         <section class="settings-form">
             <?php require_once __DIR__ . '/../templates/profile/updateUserForm.php' ?>
+            <div class="card-perfil">
+                <h2>Materias para lecionar</h2>
+                <hr class="divisor">
+                <ul id="profMaterias">
+
+                </ul>
+                <hr class="divisor">
+                <h3>Turmas sob meu domínio</h3>
+                <hr class="divisor">
+                <ul id="profTurmas">
+
+                </ul>
+            </div>
         </section>
         <section class="p-separator" id="comunicado">
             <h1>Painel de comunicados</h1>
@@ -93,6 +120,20 @@ AuthMiddleware::check();
             <div>
                 <h1>Comunicados cadastrados</h1>
                 <?php require_once __DIR__ . '/../templates/tables/announcementTable.php' ?>
+
+                <div class="paginacao">
+                    <button id="btnAnteriorC">
+                        Anterior
+                    </button>
+
+                    <span id="paginaC">
+                        1 / 1
+                    </span>
+
+                    <button id="btnProximaC">
+                        Próxima
+                    </button>
+                </div>
             </div>
         </section>
         <section class="p-separator">
@@ -106,8 +147,174 @@ AuthMiddleware::check();
         let objAlunosDashProfessor = []
         let objPerfilDashProfessor = []
         let objComunicadosDashProfessor = []
-        let id_atual = document.getElementById('idPerfil').value
-        
+        let objMateriasDashProfessor = []
+        let paginaAtual = 1
+        let paginaAtualComunicados = 1
+        let registrosPorPagina = 10
+        let registrosPorPaginac = 10
+        const id_atual = document.getElementById('idPerfil').value
+
+        document
+            .getElementById('btnAnterior')
+            .addEventListener('click', () => {
+
+                if (paginaAtual > 1) {
+
+                    paginaAtual--
+
+                    renderizarPagina()
+                }
+            })
+
+        document
+            .getElementById('btnProxima')
+            .addEventListener('click', () => {
+
+                const totalPaginas = Math.ceil(
+                    objAlunosDashProfessor.length /
+                    registrosPorPagina
+                )
+
+                if (paginaAtual < totalPaginas) {
+
+                    paginaAtual++
+
+                    renderizarPagina()
+                }
+            })
+
+        function atualizarIndicadorPagina() {
+            const totalPaginas = Math.ceil(
+                objAlunosDashProfessor.length /
+                registrosPorPagina
+            );
+            document.getElementById('pagina').textContent =
+                `${paginaAtual} / ${totalPaginas}`;
+        }
+
+        function renderizarPagina() {
+
+            const tbody = document.getElementById('tabela-dAlunos')
+
+            tbody.innerHTML = `
+        <tr class="header">
+            <th>#ID</th>
+            <th>Nome</th>
+            <th>Tipo de ensino</th>
+            <th>Turma</th>
+            <th>Matéria</th>
+            <th>Nota 1</th>
+            <th>Nota 2</th>
+            <th>Média</th>
+            <th>Desempenho</th>
+        </tr>
+    `
+
+            const inicio = (paginaAtual - 1) * registrosPorPagina
+            const fim = inicio + registrosPorPagina
+
+            const dadosPagina =
+                objAlunosDashProfessor.slice(inicio, fim);
+
+            dadosPagina.forEach((d) => {
+
+                tbody.innerHTML += `
+            <tr>
+                <td>${d.id_desempenho}</td>
+                <td>${d.nome}</td>
+                <td>${d.tipoEnsino}</td>
+                <td>${d.nomeTurma}</td>
+                <td>${d.nomeMateria}</td>
+                <td>${d.nota_primeira_prova}</td>
+                <td>${d.nota_segunda_prova}</td>
+                <td>${d.media_atual}</td>
+                <td>
+                    <button
+                        data-id="${d.id_desempenho}"
+                        class="active btn-desempenho">
+                        Verificar
+                    </button>
+                </td>
+            </tr>
+        `
+            })
+
+            atualizarIndicadorPagina()
+        }
+
+        document
+            .getElementById('btnAnteriorC')
+            .addEventListener('click', () => {
+
+                if (paginaAtualComunicados > 1) {
+
+                    paginaAtualComunicados--
+
+                    renderizarPaginaComunicados()
+                }
+            })
+
+        document
+            .getElementById('btnProximaC')
+            .addEventListener('click', () => {
+
+                const totalPaginasc = Math.ceil(
+                    objComunicadosDashProfessor.length /
+                    registrosPorPaginac
+                )
+
+                if (paginaAtualComunicados < totalPaginasc) {
+
+                    paginaAtualComunicados++
+
+                    renderizarPaginaComunicados()
+                }
+            })
+
+        function atualizarIndicadorPaginaComunicados() {
+            const totalPaginasc = Math.ceil(
+                objComunicadosDashProfessor.length /
+                registrosPorPaginac
+            );
+            document.getElementById('paginaC').textContent =
+                `${paginaAtualComunicados} / ${totalPaginasc}`;
+        }
+
+        function renderizarPaginaComunicados() {
+            const container = document.getElementById('tabela-comunicados')
+            container.innerHTML = ''
+            container.innerHTML += `
+                                         <tr class="header">
+                                             <th>#Id</th>
+                                             <th>Turma</th>
+                                             <th>Titulo</th>
+                                             <th>Status</th>
+                                             <th>Data</th> 
+                                             <th>Texto</th>
+                                         </tr>
+                                     `
+
+            const inicioc = (paginaAtualComunicados - 1) * registrosPorPaginac
+            const fimc = inicioc + registrosPorPaginac
+
+            const dadosPaginac =
+                objComunicadosDashProfessor.slice(inicioc, fimc)
+
+            dadosPaginac.forEach(c => {
+                container.innerHTML += `
+                        <tr>
+                            <td>${c.id_comunicado}</td>
+                            <td>${c.nomeTurma}</td>
+                            <td>${c.titulo}</td>
+                            <td>${c.info_status}</td>
+                            <td>${c.data_envio}</td>   
+                            <td><button  data-id="${c.id_comunicado}" id="openModal" class="active btn-detalhes">Verificar</button></td>
+                        </tr>
+                       `
+            })
+            atualizarIndicadorPaginaComunicados()
+        }
+
         async function carregarDAlunos(id_atual) {
             const urlAPIDAlunos = `http://localhost/ProjetoFinal/api/updateDesempenho/${id_atual}`
             try {
@@ -123,38 +330,8 @@ AuthMiddleware::check();
                 }
 
                 objAlunosDashProfessor = await resposta.json()
-                const tbody = document.getElementById('tabela-dAlunos')
-                tbody.innerHTML = '' 
-                tbody.innerHTML += `
-                        <tr class="header">
-                            <th>#ID</th>
-                            <th>Nome</th>
-                            <th>Tipo de ensino</th>
-                            <th>Turma</th>
-                            <th>Matéria</th>
-                            <th>Nota 1</th>
-                            <th>Nota 2</th>
-                            <th>Média</th>
-                            <th>Desempenho</th>
-                        </tr>
-                        `
-
-                objAlunosDashProfessor.forEach((d) => {
-                    const linha = `
-                <tr>
-                    <td>${d.id_desempenho}</id>
-                    <td>${d.nome}</td>
-                    <td>${d.tipoEnsino}</td>
-                    <td>${d.nomeTurma}</td>
-                    <td>${d.nomeMateria}</td>
-                    <td>${d.nota_primeira_prova}</td>
-                    <td>${d.nota_segunda_prova}</td>
-                    <td>${d.media_atual}</td>
-                    <td><button id="openStudentModal" data-id="${d.id_desempenho}" class="active btn-desempenho">Verificar</button></td>
-                </tr>
-            `
-                    tbody.innerHTML += linha
-                })
+                paginaAtual = 1
+                renderizarPagina()
                 return objAlunosDashProfessor
             } catch (erro) {
                 console.error('Falha :', erro)
@@ -177,6 +354,8 @@ AuthMiddleware::check();
 
                 // 3. Seleciona o corpo da tabela no HTML
                 const sbody = document.getElementById('select-turmas')
+                const lista = document.getElementById('profTurmas')
+                lista.innerHTML = ''
                 sbody.innerHTML = ''
                 sbody.innerHTML += `<option value="" disabled selected>Turma</option>`
 
@@ -184,7 +363,12 @@ AuthMiddleware::check();
                     const option = `
                         <option value="${turma.id_turma}">${turma.nomeTurma}</option>
                      `
+
+                    const turmas = `
+                        <li>${turma.nomeTurma}</li>
+                     `
                     sbody.innerHTML += option
+                    lista.innerHTML += turmas
                 });
 
             } catch (erro) {
@@ -224,60 +408,64 @@ AuthMiddleware::check();
                         </div>
                     `
                 nameProf.value = objPerfilDashProfessor.nome
+                carregarMateriasProfessor()
             } catch (erro) {
                 console.error('Erro ao carregar perfil :', erro)
                 alert('Não foi possível carregar perfil.')
             };
         }
 
+        async function carregarMateriasProfessor() {
+            const containerMaterias = document.getElementById('profMaterias')
+            const urlAPIMaterias = `http://localhost/ProjetoFinal/api/materias/${id_atual}`
+
+            try {
+                const response = await fetch(urlAPIMaterias, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+
+                if (!response.ok) {
+                    let mensagemErro = `Erro retornado: ${response.status}`
+                    const retornoServidor = await response.json()
+                    console.log("Retorno: ", retornoServidor)
+                    throw new Error(retornoServidor)
+                }
+                containerMaterias.innerHTML = ''
+                objMateriasDashProfessor = await response.json()
+
+                objMateriasDashProfessor.forEach(m => {
+                    const linha = `
+                            <li>${m.nomeMateria}</li>
+                       `
+                    containerMaterias.insertAdjacentHTML('beforeend', linha)
+                })
+                return objMateriasDashProfessor
+            } catch (error) {
+                alert('Problema ao coletar materias: ', error)
+            }
+        }
+
         // Função assíncrona para buscar as materias
         async function carregarComunicados(id_atual) {
-            console.log("Id para criar o comunicado: ",id_atual)
             const urlAPIComunicados = `http://localhost/ProjetoFinal/api/comunicado/${id_atual}`
             try {
-                // 1. Faz a requisição assíncrona (espera a resposta do servidor)
                 const resposta = await fetch(urlAPIComunicados, {
                     method: 'GET'
                 });
 
-                // Se a API der erro (ex: 404 ou 500), joga para o bloco catch
                 if (!resposta.ok) {
-                    throw new Error('Erro ao buscar comunicados')
+                    let mensagemErro = `Erro retornado: ${resposta.status}`
+                    const retornoServidor = await resposta.json()
+                    console.log("Retorno: ", retornoServidor)
+                    throw new Error(retornoServidor)
                 }
-                // 2. Transforma a resposta bruta do servidor em um Objeto/Array Javascript
                 objComunicadosDashProfessor = await resposta.json()
-
-                // 3. Seleciona o corpo da tabela no HTML
-
-                const container = document.getElementById('tabela-comunicados')
-                container.innerHTML = ''
-                container.innerHTML += `
-                                         <tr class="header">
-                                             <th>#Id</th>
-                                             <th>Turma</th>
-                                             <th>Titulo</th>
-                                             <th>Status</th>
-                                             <th>Data</th> 
-                                             <th>Texto</th>
-                                         </tr>
-                                     `
-                objComunicadosDashProfessor.forEach(c => {
-                    const linha = `
-                        <tr>
-                            <td>${c.id_comunicado}</td>
-                            <td>${c.nomeTurma}</td>
-                            <td>${c.titulo}</td>
-                            <td>${c.info_status}</td>
-                            <td>${c.data_envio}</td>   
-                            <td><button  data-id="${c.id_comunicado}" id="openModal" class="active btn-detalhes">Verificar</button></td>
-                        </tr>
-                       `
-
-                    // Insere a string HTML diretamente no final do container
-                    container.insertAdjacentHTML('beforeend', linha)
-                })
-
-
+                paginaAtualComunicados = 1
+                renderizarPaginaComunicados()
+                return objComunicadosDashProfessor
             } catch (erro) {
                 console.error('Falha :', erro)
                 alert('Não foi possível carregar a lista de comunicados.')
@@ -312,22 +500,18 @@ AuthMiddleware::check();
                 }
                 alert("Comunicado criado com sucesso!")
                 document.getElementById('CreateComuForm').reset()
-                carregarComunicados()
+                carregarComunicados(id_profUser)
             } catch (erro) {
                 console.error('Falha ao criar comunicado: ', erro)
             }
         }
 
         document.addEventListener('DOMContentLoaded', carregarPerfil)
-        document.addEventListener('DOMContentLoaded', carregarDAlunos(id_atual).then(objAlunosDashProfessor => {
-            console.log("Sucesso: ", objAlunosDashProfessor)
-        }).catch(erro => {
+        document.addEventListener('DOMContentLoaded', carregarDAlunos(id_atual).then(objAlunosDashProfessor => {}).catch(erro => {
             console.log("Falha: ", erro)
         }))
         document.addEventListener('DOMContentLoaded', carregarTurmaSelect)
-        document.addEventListener('DOMContentLoaded', carregarComunicados(id_atual).then(objComunicadosDashProfessor => {
-            console.log("sucessso")
-        }).catch(erro => {
+        document.addEventListener('DOMContentLoaded', carregarComunicados(id_atual).then(objComunicadosDashProfessor => {}).catch(erro => {
             console.log("Falha:", erro)
         }))
         document.getElementById("btnCriar").addEventListener("click", criarComunicado)

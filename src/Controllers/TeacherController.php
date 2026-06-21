@@ -18,6 +18,18 @@ class TeacherController{
         Response::json($this->professor->all());
     }
 
+    public function showSubjects($id){
+        $id_prof_user = $this->user->returnTeacher($id);
+
+        if($id_prof_user){
+            $id_real = $id_prof_user['id_professor'];
+        }else{
+            Response::json(["error" => "Professor não encontrado",], 401);
+        }
+        $objMaterias = $this->professor->teacherSubjects($id_real);
+        Response::json($objMaterias);
+    }
+
     public function show($id){
         $professor = $this->professor->find($id);
 

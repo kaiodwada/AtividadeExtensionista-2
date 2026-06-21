@@ -78,6 +78,7 @@
         let statusComu = document.getElementById('update-urgencia')
         let id_comunicado = document.getElementById('updIDcomu')
         let id_professor = document.getElementById('updIDProfessor')
+        const id_profUser = document.getElementById('idPerfil').value
 
         document.addEventListener("click", (e) => {
             if (e.target.classList.contains("btn-detalhes")) {
@@ -126,13 +127,15 @@
                 id_professor,
                 texto_comunicado
             }
+
             alterarComunicado(values).then(retorno => {
                 alert("Alteração realizada com sucesso")
+                carregarComunicados(id_profUser)
                 closeModal()
-                carregarComunicados()
             }).catch(erro => {
                 console.log("Erro: ", erro)
             })
+
         })
 
         const modal = document.getElementById("modal")

@@ -76,6 +76,15 @@ class Teacher
         ]);
     }
 
+    public function teacherSubjects($id)
+    {
+        $stmt = $this->db->prepare('SELECT m.nomeMateria FROM materias as m 
+                                    INNER JOIN professor as p ON p.id_professor = m.id_professor
+                                    WHERE m.id_professor = ?');
+        $stmt->execute([$id]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function delete($id)
     {
         $stmt = $this->db->prepare('DELETE FROM professor WHERE id_professor = ?');
