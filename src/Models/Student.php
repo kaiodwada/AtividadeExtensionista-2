@@ -19,6 +19,7 @@ class Student
     {
         return $this->db
             ->query('SELECT a.nome,
+                            a.id_aluno,
                             a.matricula,
                             a.idade,
                             a.tipoEnsino,

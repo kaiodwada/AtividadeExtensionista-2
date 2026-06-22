@@ -78,7 +78,7 @@ AuthMiddleware::check();
 
             </table>
             <div class="paginacao">
-                <button id="btnAnterior">
+                <button id="btnAnterior" class="logout-button">
                     Anterior
                 </button>
 
@@ -86,11 +86,17 @@ AuthMiddleware::check();
                     1 / 1
                 </span>
 
-                <button id="btnProxima">
+                <button id="btnProxima" class="logout-button">
                     Próxima
                 </button>
             </div>
             <?php require_once __DIR__ . '/../templates/forms/studentModal.php' ?>
+            <section class="p-separator" id="meuPerfil">
+                <h1>Painel desempenho</h1>
+            </section>
+            <div class="card-perfil">
+                <?php require_once __DIR__ . '/../templates/forms/performanceForm.php' ?>
+            </div>
         </section>
         <section class="p-separator" id="meuPerfil">
             <h1>Meu perfil</h1>
@@ -122,7 +128,7 @@ AuthMiddleware::check();
                 <?php require_once __DIR__ . '/../templates/tables/announcementTable.php' ?>
 
                 <div class="paginacao">
-                    <button id="btnAnteriorC">
+                    <button id="btnAnteriorC" class="logout-button">
                         Anterior
                     </button>
 
@@ -130,7 +136,7 @@ AuthMiddleware::check();
                         1 / 1
                     </span>
 
-                    <button id="btnProximaC">
+                    <button id="btnProximaC" class="logout-button">
                         Próxima
                     </button>
                 </div>
@@ -193,7 +199,6 @@ AuthMiddleware::check();
         }
 
         function renderizarPagina() {
-
             const tbody = document.getElementById('tabela-dAlunos')
 
             tbody.innerHTML = `
@@ -217,7 +222,6 @@ AuthMiddleware::check();
                 objAlunosDashProfessor.slice(inicio, fim);
 
             dadosPagina.forEach((d) => {
-
                 tbody.innerHTML += `
             <tr>
                 <td>${d.id_desempenho}</td>
@@ -341,23 +345,28 @@ AuthMiddleware::check();
         async function carregarTurmaSelect() {
             const urlAPITurmas = 'http://localhost/ProjetoFinal/api/turma'
             try {
-                // 1. Faz a requisição assíncrona (espera a resposta do servidor)
-                const resposta = await fetch(urlAPITurmas, {
+                const response = await fetch(urlAPITurmas, {
                     method: 'GET'
                 })
 
-                // Se a API der erro (ex: 404 ou 500), joga para o bloco catch
-                if (!resposta.ok) throw new Error('Erro ao buscar dados da API')
+                if (!response.ok) {
+                    let mensagemErro = `Erro retornado: ${response.status}`
+                    const retornoServidor = await response.json()
+                    console.log("Retorno: ", retornoServidor)
+                    aler(retornoServidor)
+                }
 
-                // 2. Transforma a resposta bruta do servidor em um Objeto/Array Javascript
-                const objTurmasDashProfessor = await resposta.json()
+                objTurmasDashProfessor = await response.json()
 
-                // 3. Seleciona o corpo da tabela no HTML
                 const sbody = document.getElementById('select-turmas')
                 const lista = document.getElementById('profTurmas')
+                const turmaSelect = document.getElementById('select-turmaP')
+
+                turmaSelect.innerHTML = ''
                 lista.innerHTML = ''
                 sbody.innerHTML = ''
                 sbody.innerHTML += `<option value="" disabled selected>Turma</option>`
+                turmaSelect.innerHTML += `<option value="" disabled selected>Selecionar turma</option>`
 
                 objTurmasDashProfessor.forEach(turma => {
                     const option = `
@@ -367,10 +376,12 @@ AuthMiddleware::check();
                     const turmas = `
                         <li>${turma.nomeTurma}</li>
                      `
-                    sbody.innerHTML += option
-                    lista.innerHTML += turmas
-                });
 
+                    sbody.innerHTML += option
+                    turmaSelect.innerHTML += option
+                    lista.innerHTML += turmas
+                })
+                return objTurmasDashProfessor
             } catch (erro) {
                 console.error('Ops! Algo deu errado:', erro)
                 alert('Não foi possível carregar a lista de turmas.')
@@ -386,20 +397,22 @@ AuthMiddleware::check();
             const urlAPIPerfil = `http://localhost/ProjetoFinal/api/meuPerfil/${data}/${tipo}`
 
             try {
-                // 1. Faz a requisição assíncrona (espera a resposta do servidor)
-                const resposta = await fetch(urlAPIPerfil, {
+                const response = await fetch(urlAPIPerfil, {
                     method: 'GET'
                 });
 
-                // Se a API der erro (ex: 404 ou 500), joga para o bloco catch
-                if (!resposta.ok) throw new Error('Erro ao buscar dados da API')
+                if (!response.ok) {
+                    let mensagemErro = `Erro retornado: ${response.status}`
+                    const retornoServidor = await response.json()
+                    console.log("Retorno: ", retornoServidor)
+                    throw new Error(retornoServidor)
+                }
 
-                // 2. Transforma a resposta bruta do servidor em um Objeto/Array Javascript
-                const objPerfilDashProfessor = await resposta.json()
 
-                // 3. Seleciona o corpo da tabela no HTML
+                const objPerfilDashProfessor = await response.json()
+
                 const tbody = document.getElementById('perfilInfo')
-                tbody.innerHTML = '' // Limpa a tabela antes de preencher
+                tbody.innerHTML = '' 
                 tbody.innerHTML += `
                         <div class="perfil-info" id="perfilInfo">
                             <h2 class="perfil-nome">${objPerfilDashProfessor.nome}</h2>
@@ -412,11 +425,12 @@ AuthMiddleware::check();
             } catch (erro) {
                 console.error('Erro ao carregar perfil :', erro)
                 alert('Não foi possível carregar perfil.')
-            };
+            }
         }
 
         async function carregarMateriasProfessor() {
             const containerMaterias = document.getElementById('profMaterias')
+            const materiaSelect = document.getElementById('select-materiaP')
             const urlAPIMaterias = `http://localhost/ProjetoFinal/api/materias/${id_atual}`
 
             try {
@@ -433,13 +447,20 @@ AuthMiddleware::check();
                     console.log("Retorno: ", retornoServidor)
                     throw new Error(retornoServidor)
                 }
+
                 containerMaterias.innerHTML = ''
+                materiaSelect.innerHTML = ''
+                materiaSelect.innerHTML += '<option value="" disabled selected>Selecionar Materia</option>'
                 objMateriasDashProfessor = await response.json()
 
                 objMateriasDashProfessor.forEach(m => {
                     const linha = `
                             <li>${m.nomeMateria}</li>
                        `
+                    const option = `<option value="${m.id_materia}" disabled selected>${m.nomeMateria}</option>`    
+
+                    materiaSelect.innerHTML += option
+
                     containerMaterias.insertAdjacentHTML('beforeend', linha)
                 })
                 return objMateriasDashProfessor
@@ -448,7 +469,6 @@ AuthMiddleware::check();
             }
         }
 
-        // Função assíncrona para buscar as materias
         async function carregarComunicados(id_atual) {
             const urlAPIComunicados = `http://localhost/ProjetoFinal/api/comunicado/${id_atual}`
             try {
@@ -496,7 +516,10 @@ AuthMiddleware::check();
                     body: JSON.stringify(data)
                 })
                 if (!resposta.ok) {
-                    throw new Error('Erro ao Criar comunicado ', resposta)
+                    let mensagemErro = `Erro retornado: ${resposta.status}`
+                    const retornoServidor = await resposta.json()
+                    console.log("Retorno: ", retornoServidor)
+                    aler(retornoServidor)
                 }
                 alert("Comunicado criado com sucesso!")
                 document.getElementById('CreateComuForm').reset()
@@ -507,7 +530,9 @@ AuthMiddleware::check();
         }
 
         document.addEventListener('DOMContentLoaded', carregarPerfil)
-        document.addEventListener('DOMContentLoaded', carregarDAlunos(id_atual).then(objAlunosDashProfessor => {}).catch(erro => {
+        document.addEventListener('DOMContentLoaded', carregarDAlunos(id_atual).then(objAlunosDashProfessor => {
+            carregarInfoDesempenho()
+        }).catch(erro => {
             console.log("Falha: ", erro)
         }))
         document.addEventListener('DOMContentLoaded', carregarTurmaSelect)

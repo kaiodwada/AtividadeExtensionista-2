@@ -163,70 +163,8 @@ if ($uri[0] === 'desativarUsuario' && $method === 'PUT') {
     exit;
 }
 
-/*
-
-//Descobre o tipo de controller usando operador ternário
-$get_controller = isset($uri[0]) ? trim($uri[0]) : '';
-
-if (empty($get_controller)) {
-    Response::json(["error" => "Rota inválida"], 400);
+if ($uri[0] === 'addNotas' && $method === 'POST') {
+    $user = new PerformanceController();
+    $user->store();
+    exit;
 }
-
-$actual_controller = ucfirst($get_controller) . 'Controller';
-
-$map = [
-    'diretor' => 'DirectorController',
-    'materia' => 'MateriaController'
-];
-
-if (array_key_exists($get_controller, $map)) {
-    $actual_controller = $map[$get_controller];
-}
-
-//Pega o nome do arquivo http://localhost/ProjetoFinal/src/Controllers/
-$fileController = __DIR__ . '/../Controllers/' . $actual_controller . '.php';
-
-//Verifica se existe o arquivo
-if (!file_exists($fileController)) {
-    Response::json(["error" => "Controller não possui definição"], 404);
-}
-// Pega o arquivo
-require_once $fileController;
-
-$controller = new $actual_controller();
-
-AuthMiddleware::check();
-
-switch ($method) {
-    case 'GET':
-        if (isset($uri[1])) {
-            if (method_exists($controller, 'show')) {
-                $controller->show($uri[1]);
-            } else {
-                Response::json(["error" => "Método não existe"], 405);
-            }
-        } else {
-            $controller->index();
-        }
-        break;
-    case 'POST':
-        $controller->store();
-        break;
-    case 'PUT':
-        if (isset($uri[1])) {
-            $controller->update($uri[1]);
-        } else {
-            Response::json(["error" => "ID do diretor fornecido"], 400);
-        }
-        break;
-    case 'DELETE':
-        if (isset($uri[1])) {
-            $controller->destroy($uri[1]);
-        } else {
-            Response::json(["error" => "ID do diretor não fornecido"], 400);
-        }
-        break;
-}
-
-Response::json(["error" => "Metodo não encontrado"], 400);
-*/

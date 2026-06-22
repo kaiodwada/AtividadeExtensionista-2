@@ -15,6 +15,7 @@ class Performance
     {
         $stmt = $this->db->prepare('SELECT d.id_desempenho,
 	                                       a.nome,
+                                           a.id_aluno,
                                            a.tipoEnsino,
                                            t.nomeTurma,
                                            m.nomeMateria,
@@ -55,13 +56,14 @@ class Performance
     public function create($data)
     {
         $stmt = $this->db->prepare(
-            'INSERT INTO desempenhoprovas (id_aluno,id_turma,id_materia,nota_primeira_prova) VALUES (?,?,?,?)'
+            'INSERT INTO desempenhoprovas (id_aluno,id_turma,id_materia,nota_primeira_prova,nota_segunda_prova) VALUES (?,?,?,?,?)'
         );
         return $stmt->execute([
             $data['id_aluno'],
             $data['id_turma'],
             $data['id_materia'],
-            $data['nota_primeira_prova']
+            $data['nota_primeira_prova'],
+            $data['nota_segunda_prova']
         ]);
     }
 

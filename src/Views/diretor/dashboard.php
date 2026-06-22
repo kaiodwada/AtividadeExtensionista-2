@@ -58,7 +58,7 @@ AuthMiddleware::check();
                 <?php require_once __DIR__ . '/../templates/tables/classTable.php' ?>
                 <?php require_once __DIR__ . '/../templates/modals/turmaModal.php' ?>
                 <div class="paginacao">
-                    <button id="btnAnteriorTurma">
+                    <button id="btnAnteriorTurma" class="logout-button">
                         Anterior
                     </button>
 
@@ -66,7 +66,7 @@ AuthMiddleware::check();
                         1 / 1
                     </span>
 
-                    <button id="btnProximaTurma">
+                    <button id="btnProximaTurma" class="logout-button">
                         Próxima
                     </button>
                 </div>
@@ -83,7 +83,7 @@ AuthMiddleware::check();
 
                 <?php require_once __DIR__ . '/../templates/modals/subjectsModal.php' ?>
                 <div class="paginacao">
-                    <button id="btnAnteriorMateria">
+                    <button id="btnAnteriorMateria" class="logout-button">
                         Anterior
                     </button>
 
@@ -91,7 +91,7 @@ AuthMiddleware::check();
                         1 / 1
                     </span>
 
-                    <button id="btnProximaMateria">
+                    <button id="btnProximaMateria" class="logout-button">
                         Próxima
                     </button>
                 </div>
@@ -126,7 +126,7 @@ AuthMiddleware::check();
             <h1>Professores cadastrados</h1>
             <?php require_once __DIR__ . '/../templates/tables/teacherTable.php' ?>
             <div class="paginacao">
-                <button id="btnAnteriorProfessor">
+                <button id="btnAnteriorProfessor" class="logout-button">
                     Anterior
                 </button>
 
@@ -134,7 +134,7 @@ AuthMiddleware::check();
                     1 / 1
                 </span>
 
-                <button id="btnProximaProfessor">
+                <button id="btnProximaProfessor" class="logout-button">
                     Próxima
                 </button>
             </div>
@@ -148,7 +148,7 @@ AuthMiddleware::check();
             <h1>Alunos cadastrados</h1>
             <?php require_once __DIR__ . '/../templates/tables/studentTable.php' ?>
             <div class="paginacao">
-                <button id="btnAnteriorAluno">
+                <button id="btnAnteriorAluno" class="logout-button">
                     Anterior
                 </button>
 
@@ -156,7 +156,7 @@ AuthMiddleware::check();
                     1 / 1
                 </span>
 
-                <button id="btnProximaAluno">
+                <button id="btnProximaAluno" class="logout-button">
                     Próxima
                 </button>
             </div>

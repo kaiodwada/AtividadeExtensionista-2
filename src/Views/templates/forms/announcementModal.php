@@ -56,7 +56,7 @@
                 <hr class="divisor">
                 <input type="hidden" id="updIDcomu" value="">
                 <input type="hidden" id="updIDProfessor" value="">
-                <input type="text" id="updTxtTituloComu" value="">
+                <input type="text" id="updTxtTituloComu" value="" class="input-estilizado">
                 <select class="select-form" id="update-turmas">
                 </select>
                 <select class="select-form" id="update-urgencia">

@@ -77,7 +77,8 @@ class Teacher
 
     public function teacherSubjects($id)
     {
-        $stmt = $this->db->prepare('SELECT m.nomeMateria FROM materias as m 
+        $stmt = $this->db->prepare('SELECT m.nomeMateria,
+                                           m.id_materia FROM materias as m 
                                     INNER JOIN professor as p ON p.id_professor = m.id_professor
                                     WHERE m.id_professor = ?');
         $stmt->execute([$id]);
