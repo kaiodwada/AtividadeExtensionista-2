@@ -11,7 +11,7 @@ let paginaAtualTurma = 1
 //----------------------------------
 let registrosPorPaginaAluno = 10
 let registrosPorPaginaProfessor = 10
-let registrosPorPaginaMateria = 2
+let registrosPorPaginaMateria = 10
 let registrosPorPaginaTurma = 10
 //----------------------------------
 

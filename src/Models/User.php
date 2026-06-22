@@ -119,8 +119,16 @@ class User
         );
         return $stmt->execute([$status, $id]);
     }
-
-
+    public function passUpdate($id, $data)
+    {
+        $stmt = $this->db->prepare(
+            'UPDATE usuarios SET senha_hash = ? WHERE id_usuario = ?'
+        );
+        return $stmt->execute([
+            $data['senha_hash'],
+            $id
+        ]);
+    }
     public function returnTeacher($id)
     {
         $stmt = $this->db->prepare('SELECT p.id_professor FROM usuarios as c

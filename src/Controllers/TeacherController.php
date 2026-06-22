@@ -61,17 +61,6 @@ class TeacherController{
         Response::json(["message" => "Professor atualizado"]);        
     }
 
-    public function newPassword($id){
-        $data = json_decode(file_get_contents('php://input'), true);
-
-        if(!$this->user->find($id)){
-            Response::json(["error" => "Professor não encontrado"], 404);
-        }
-        $this->professor->passUpdate($id, $data);
-
-        Response::json(["message" => "Professor atualizado"]);   
-    }
-
     public function destroy($id){
         if(!$this->professor->find($id)){
             Response::json(["message" => "Professor não encontrado"], 404);

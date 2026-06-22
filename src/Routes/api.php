@@ -15,10 +15,10 @@ require_once __DIR__ . '/../Middlewares/AuthMiddleware.php';
 $request_uri = trim($_SERVER['REQUEST_URI'], '/');
 
 if (strpos($request_uri, 'ProjetoFinal/') === 0) {
-    $request_uri = substr($request_uri, 13,); 
+    $request_uri = substr($request_uri, 13,);
 }
 if (strpos($request_uri, 'public/') === 0) {
-    $request_uri = substr($request_uri, 7); 
+    $request_uri = substr($request_uri, 7);
 }
 // Remove '/api' da uri se estiver presente
 if (strpos($request_uri, 'api/') === 0) {
@@ -83,7 +83,7 @@ if ($uri[0] === 'performance' && $method === 'PUT') {
 if ($uri[0] === 'updateDesempenho' && $method === 'GET') {
     $user = new PerformanceController();
     $user->index($uri[1]);
-    exit;        
+    exit;
 }
 
 if ($uri[0] === 'comunicado' && $method === 'POST') {
@@ -142,20 +142,9 @@ if ($uri[0] === 'meuPerfil' && $method === 'GET') {
     }
 }
 if ($uri[0] === 'meuPerfil' && $method === 'PUT') {
-    switch ($uri[2]) {
-        case 'Diretor':
-            $user = new DirectorController();
-            $user->show($uri[1]);
-            exit;
-        case 'Aluno':
-            $user = new StudentController();
-            $user->show($uri[1]);
-            exit;
-        case 'Professor':
-            $user = new TeacherController();
-            $user->newPassword($uri[1]);
-            exit;
-    }
+    $user = new UserController();
+    $user->newPassword($uri[1]);
+    exit;
 }
 if ($uri[0] === 'aluno' && $method === 'GET') {
     $user = new StudentController();
@@ -168,7 +157,7 @@ if ($uri[0] === 'professor' && $method === 'GET') {
     exit;
 }
 
-if($uri[0] === 'desativarUsuario' && $method === 'PUT'){
+if ($uri[0] === 'desativarUsuario' && $method === 'PUT') {
     $user = new UserController();
     $user->desactivate($uri[1]);
     exit;

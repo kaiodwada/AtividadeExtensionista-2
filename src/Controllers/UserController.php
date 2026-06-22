@@ -90,19 +90,28 @@ class UserController
         if (!$status_conta) {
             Response::json(["error" => "Usuário não encontrado"], 404);
         }
-        if($status_conta['status_conta'] === 0){
+        if ($status_conta['status_conta'] === 0) {
             $status = 1;
         }
 
         $this->user->desactivate($id, $status);
-        if($status === 0){
+        if ($status === 0) {
             Response::json(["message" => "Usuário desativado"], 200);
-        }else{
+        } else {
             Response::json(["message" => "Usuário reativado"], 200);
         }
-       
     }
+    public function newPassword($id)
+    {
+        $data = json_decode(file_get_contents('php://input'), true);
 
+        if (!$this->user->find($id)) {
+            Response::json(["error" => "Professor não encontrado"], 404);
+        }
+        $this->user->passUpdate($id, $data);
+
+        Response::json(["message" => "Professor atualizado"]);
+    }
     public function update($id)
     {
         $data = json_decode(file_get_contents('php://input'), true);

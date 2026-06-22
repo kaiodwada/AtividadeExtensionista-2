@@ -70,14 +70,16 @@ if ($statusDaConta === 1) {
             tipo
         }
         alterarPerfil(data).then( retorno =>{
-            alert(retorno)
+            alert(retorno.message)
+            updPass1.value = ''
+            updPass2.value = ''
         }).catch(erro => {
             alert("Erro: ", erro)
         })
     })
 
     async function alterarPerfil(data) {
-        const urlAPIUpdate = `http://localhost/ProjetoFinal/api/meuPerfil/${data.id}/${data.tipo}`
+        const urlAPIUpdate = `http://localhost/ProjetoFinal/api/meuPerfil/${data.id}`
 
         try {
             const response = await fetch(urlAPIUpdate, {
@@ -92,7 +94,7 @@ if ($statusDaConta === 1) {
                 let mensagemErro = `Erro retornado: ${response.status}`
                 const retornoServidor = await response.json()
                 console.log("Retorno: ", retornoServidor)
-                throw new Error(retornoServidor)
+                alert(retornoServidor.error)
             }
             const updateOK = await response.json()
             return updateOK
