@@ -85,11 +85,22 @@ class UserController
 
     public function desactivate($id)
     {
-        if (!$this->user->find($id)) {
+        $status_conta = $this->user->find($id);
+        $status = 0;
+        if (!$status_conta) {
             Response::json(["error" => "Usuário não encontrado"], 404);
         }
-        $this->user->desactivate($id);
-        Response::json(["message" => "Usuário desativado"]);
+        if($status_conta['status_conta'] === 0){
+            $status = 1;
+        }
+
+        $this->user->desactivate($id, $status);
+        if($status === 0){
+            Response::json(["message" => "Usuário desativado"], 200);
+        }else{
+            Response::json(["message" => "Usuário reativado"], 200);
+        }
+       
     }
 
     public function update($id)

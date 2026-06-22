@@ -105,6 +105,7 @@ AuthMiddleware::check();
             const data = document.getElementById('idPerfil').value
             const tipo = document.getElementById('tipoUsuario').value
             const selectData = document.getElementById('select-status')
+            const myName = document.getElementById('updName')
 
             const urlAPIPerfil = `http://localhost/ProjetoFinal/api/meuPerfil/${data}/${tipo}`
 
@@ -132,6 +133,8 @@ AuthMiddleware::check();
                          <p class="perfil-cargo">${perfil.nomeTurma}</p>
                      </div>
                  `
+                 myName.value = ''
+                 myName.value = perfil.nome
             } catch (erro) {
                 console.error('Erro ao carregar perfil :', erro)
                 alert('Não foi possível carregar perfil.')

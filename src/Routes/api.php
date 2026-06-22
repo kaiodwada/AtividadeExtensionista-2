@@ -15,15 +15,14 @@ require_once __DIR__ . '/../Middlewares/AuthMiddleware.php';
 $request_uri = trim($_SERVER['REQUEST_URI'], '/');
 
 if (strpos($request_uri, 'ProjetoFinal/') === 0) {
-    $request_uri = substr($request_uri, 13,); //Retira  ProjetoFinal/
+    $request_uri = substr($request_uri, 13,); 
 }
-// Remover '/public' do início da URI se estiver presente
 if (strpos($request_uri, 'public/') === 0) {
-    $request_uri = substr($request_uri, 7); // Remove 'public/'
+    $request_uri = substr($request_uri, 7); 
 }
 // Remove '/api' da uri se estiver presente
 if (strpos($request_uri, 'api/') === 0) {
-    $request_uri = substr($request_uri, 4); // Remove 'api/'
+    $request_uri = substr($request_uri, 4);
 }
 
 $uri = explode('/', trim($request_uri, '/'));
@@ -175,6 +174,7 @@ if($uri[0] === 'desativarUsuario' && $method === 'PUT'){
     exit;
 }
 
+/*
 
 //Descobre o tipo de controller usando operador ternário
 $get_controller = isset($uri[0]) ? trim($uri[0]) : '';
@@ -240,3 +240,4 @@ switch ($method) {
 }
 
 Response::json(["error" => "Metodo não encontrado"], 400);
+*/

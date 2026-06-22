@@ -57,6 +57,19 @@ AuthMiddleware::check();
                 <h1>Turmas cadastradas</h1>
                 <?php require_once __DIR__ . '/../templates/tables/classTable.php' ?>
                 <?php require_once __DIR__ . '/../templates/modals/turmaModal.php' ?>
+                <div class="paginacao">
+                    <button id="btnAnteriorTurma">
+                        Anterior
+                    </button>
+
+                    <span id="paginaTurma">
+                        1 / 1
+                    </span>
+
+                    <button id="btnProximaTurma">
+                        Próxima
+                    </button>
+                </div>
             </div>
         </section>
         <section class="p-separator" id="materias">
@@ -69,6 +82,19 @@ AuthMiddleware::check();
                 <?php require_once __DIR__ . '/../templates/tables/schoolSubjectsTable.php' ?>
 
                 <?php require_once __DIR__ . '/../templates/modals/subjectsModal.php' ?>
+                <div class="paginacao">
+                    <button id="btnAnteriorMateria">
+                        Anterior
+                    </button>
+
+                    <span id="paginaMateria">
+                        1 / 1
+                    </span>
+
+                    <button id="btnProximaMateria">
+                        Próxima
+                    </button>
+                </div>
             </div>
         </section>
         <section class="p-separator" id="meuPerfil">
@@ -80,7 +106,7 @@ AuthMiddleware::check();
         <section class="p-separator" id="usuarios"">
             <h1>Criar novo usuario</h1>
         </section>
-        <section class="settings-form">
+        <section class=" settings-form">
             <?php require_once __DIR__ . '/../templates/forms/userForm.php' ?>
             <div>
                 <h2>Padrão de criação de novos usuários</h2>
@@ -99,6 +125,19 @@ AuthMiddleware::check();
         <section class="p-active">
             <h1>Professores cadastrados</h1>
             <?php require_once __DIR__ . '/../templates/tables/teacherTable.php' ?>
+            <div class="paginacao">
+                <button id="btnAnteriorProfessor">
+                    Anterior
+                </button>
+
+                <span id="paginaProfessor">
+                    1 / 1
+                </span>
+
+                <button id="btnProximaProfessor">
+                    Próxima
+                </button>
+            </div>
         </section>
 
         <section class="p-separator">
@@ -108,6 +147,19 @@ AuthMiddleware::check();
         <section class="p-active">
             <h1>Alunos cadastrados</h1>
             <?php require_once __DIR__ . '/../templates/tables/studentTable.php' ?>
+            <div class="paginacao">
+                <button id="btnAnteriorAluno">
+                    Anterior
+                </button>
+
+                <span id="paginaAluno">
+                    1 / 1
+                </span>
+
+                <button id="btnProximaAluno">
+                    Próxima
+                </button>
+            </div>
         </section>
 
         <section class="p-separator">
