@@ -33,7 +33,6 @@ class TurmaController{
         $this->turma->create($data);
         Response::json(["message" => "Turma cadastrado com sucesso"], 201);
     }
-/*
     public function update($id){
         $data = json_decode(file_get_contents('php://input'), true);
 
@@ -51,6 +50,5 @@ class TurmaController{
 
         $this->turma->delete($id);
         Response::json(["message" => "Turma removido com sucesso"]);
-    }
-*/    
+    }  
 }

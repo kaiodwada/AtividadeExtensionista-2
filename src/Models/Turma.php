@@ -37,7 +37,7 @@ class Turma {
             $data['id_professor']
         ]);
     }
-/*
+
     public function update($id, $data){
         $stmt = $this->db->prepare(
             'UPDATE turma SET id_professor = ? WHERE id_turma = ?'
@@ -52,5 +52,5 @@ class Turma {
         $stmt = $this->db->prepare('DELETE FROM turma WHERE id_turma = ?');
         return $stmt->execute([$id]);
     }
-*/
+
 }

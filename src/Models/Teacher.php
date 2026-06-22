@@ -18,7 +18,16 @@ class Teacher
     public function all()
     {
         return $this->db
-            ->query('SELECT * FROM professor')
+            ->query('SELECT p.id_professor,
+                            p.matricula,
+                            p.nome,
+                            p.nivelAcesso,
+                            u.tipo_usuario,
+                            u.status_conta,
+                            u.id_usuario,
+                            u.data_criacao
+                             FROM professor as p 
+                              INNER JOIN usuarios u ON u.id_usuario = p.id_usuario')
             ->fetchAll(PDO::FETCH_ASSOC);
     }
     public function dataCheck($data)

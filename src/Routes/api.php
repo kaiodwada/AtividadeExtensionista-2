@@ -169,6 +169,12 @@ if ($uri[0] === 'professor' && $method === 'GET') {
     exit;
 }
 
+if($uri[0] === 'desativarUsuario' && $method === 'PUT'){
+    $user = new UserController();
+    $user->desactivate($uri[1]);
+    exit;
+}
+
 
 //Descobre o tipo de controller usando operador ternário
 $get_controller = isset($uri[0]) ? trim($uri[0]) : '';

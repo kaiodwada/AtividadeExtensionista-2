@@ -56,6 +56,7 @@ AuthMiddleware::check();
             <div>
                 <h1>Turmas cadastradas</h1>
                 <?php require_once __DIR__ . '/../templates/tables/classTable.php' ?>
+                <?php require_once __DIR__ . '/../templates/modals/turmaModal.php' ?>
             </div>
         </section>
         <section class="p-separator" id="materias">
@@ -66,6 +67,8 @@ AuthMiddleware::check();
             <div>
                 <h1>Materias cadastradas</h1>
                 <?php require_once __DIR__ . '/../templates/tables/schoolSubjectsTable.php' ?>
+
+                <?php require_once __DIR__ . '/../templates/modals/subjectsModal.php' ?>
             </div>
         </section>
         <section class="p-separator" id="meuPerfil">

@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 require_once __DIR__ . '/../Models/User.php';
 require_once __DIR__ . '/../Utils/Response.php';
@@ -6,7 +6,8 @@ require_once __DIR__ . '/../Config/Database.php';
 require_once __DIR__ . '/../Models/Student.php';
 require_once __DIR__ . '/../Models/Teacher.php';
 
-class UserController{
+class UserController
+{
     private $user;
     private $db;
 
@@ -16,31 +17,38 @@ class UserController{
         $this->user = new User();
     }
 
-    public function index(){
+    public function index()
+    {
         Response::json($this->user->all());
     }
 
-    public function returnTeacher($id){
+    public function returnTeacher($id)
+    {
         return $this->user->returnTeacher($id);
     }
-    public function returnStudent($id){
-         return $this->user->returnStudent($id);
+    public function returnStudent($id)
+    {
+        return $this->user->returnStudent($id);
     }
-    public function show($id){
+    public function show($id)
+    {
         $user = $this->user->find($id);
 
-        if(!$user){
+        if (!$user) {
             Response::json(["error" => "Usuário não encontrado"], 404);
         }
 
         Response::json($user);
     }
 
-    public function store(){
+    public function store()
+    {
         $data = json_decode(file_get_contents('php://input'), true);
 
-        if (!$data || empty($data['matricula_usuario']) || empty($data['senha_hash']) || empty($data['tipo_usuario']) 
-            || empty($data['status_conta'])){
+        if (
+            !$data || empty($data['matricula_usuario']) || empty($data['senha_hash']) || empty($data['tipo_usuario'])
+            || empty($data['status_conta'])
+        ) {
             Response::json(['error' => "Dados inválidos para criar usuário"], 400);
         }
         try {
@@ -66,27 +74,38 @@ class UserController{
                     $professor->dataCheck($data);
                     $professor->setConnection($this->db);
                     $professor->create($data, $user_id);
-                    break;              
-            }    
-            $this->db->commit();        
+                    break;
+            }
+            $this->db->commit();
         } catch (\Throwable $th) {
             Response::json(["error" => "Problema ao incluir usuario " . $th], 404);
         }
         Response::json(["message" => "Usuário cadastrado com sucesso"], 201);
     }
 
-    public function update($id){
+    public function desactivate($id)
+    {
+        if (!$this->user->find($id)) {
+            Response::json(["error" => "Usuário não encontrado"], 404);
+        }
+        $this->user->desactivate($id);
+        Response::json(["message" => "Usuário desativado"]);
+    }
+
+    public function update($id)
+    {
         $data = json_decode(file_get_contents('php://input'), true);
 
-        if(!$this->user->find($id)){
+        if (!$this->user->find($id)) {
             Response::json(["error" => "Usuário não encontrado"], 404);
         }
         $this->user->update($id, $data);
-        Response::json(["message" => "Usuário atualizado"]);        
+        Response::json(["message" => "Usuário atualizado"]);
     }
 
-    public function destroy($id){
-        if(!$this->user->find($id)){
+    public function destroy($id)
+    {
+        if (!$this->user->find($id)) {
             Response::json(["message" => "Usuário não encontrado"], 404);
         }
 

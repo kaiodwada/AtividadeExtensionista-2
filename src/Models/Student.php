@@ -18,7 +18,18 @@ class Student
     public function all()
     {
         return $this->db
-            ->query('SELECT * FROM aluno')
+            ->query('SELECT a.nome,
+                            a.matricula,
+                            a.idade,
+                            a.tipoEnsino,
+                            a.nivelAcesso,
+                            a.id_usuario,
+                            u.tipo_usuario,
+                            u.status_conta,
+                            u.id_usuario,
+                            u.data_criacao
+                    FROM aluno as a 
+                    INNER JOIN usuarios u ON u.id_usuario = a.id_usuario')
             ->fetchAll(PDO::FETCH_ASSOC);
     }
     public function dataCheck($data)

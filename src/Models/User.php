@@ -112,6 +112,13 @@ class User
             $id
         ]);
     }
+    public function desactivate($id)
+    {
+        $stmt = $this->db->prepare(
+            'UPDATE usuarios SET status_conta = 0 WHERE id_usuario = ?'
+        );
+        return $stmt->execute([$id]);
+    }
 
     public function returnTeacher($id)
     {
