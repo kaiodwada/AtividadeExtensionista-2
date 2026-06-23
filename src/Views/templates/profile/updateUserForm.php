@@ -55,8 +55,6 @@ if ($statusDaConta === 1) {
 
         if (updPass1 === '' || updPass2 === '') {
             alert('Ambos os campos de senha devem ser preenchidos!')
-        } else if (updPass1.length >= 8) {
-            alert('A senha deve ter no máximo 8 caracteres!')
         } else if (updPass1 !== updPass2) {
             alert('As senhas não coincidem!')
         } else {

@@ -492,7 +492,7 @@ AuthMiddleware::check();
             }
         }
         async function criarComunicado() {
-            event.preventDefault();
+            event.preventDefault()
             const id_professor = document.getElementById('idPerfil').value
             const urlAPICCreate = 'http://localhost/ProjetoFinal/api/comunicado'
             let titulo = document.getElementById('txtTituloComu').value

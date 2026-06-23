@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="http://localhost/ProjetoFinal/public/css/main.css">
     <style>
-        /* The overlay (background) */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -16,12 +15,10 @@
             background: rgba(0, 0, 0, 0.5);
         }
 
-        /* Show the modal */
         .modal-overlay.show {
             display: block;
         }
 
-        /* The modal box */
         .modal-box {
             background: white;
             width: 90%;
@@ -32,7 +29,6 @@
             position: relative;
         }
 
-        /* Close button */
         .modal-close {
             position: absolute;
             right: 12px;
@@ -57,7 +53,7 @@
                 <hr class="divisor">
                 <label for="id-materia">Corrigir nome da materia:</label>
                 <input type="hidden" id="id-materia" value="">
-                <input type="text" id="nomeMateria" value="">
+                <input type="text" id="nomeMateria" value="" class="input-estilizado">
                 
                 <label for="select-teachers">Trocar professor:</label>
                 <select class="select-form" id="select-teachersM">

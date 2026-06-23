@@ -235,7 +235,6 @@ function renderizarPaginaMateria() {
                 <th>Materia</th>
                 <th>Professor responsável</th>
                 <th>Alterar</th>
-                <th>Deletar</th>
             </tr>
         `
     const inicioMateria = (paginaAtualMateria - 1) * registrosPorPaginaMateria
@@ -249,7 +248,6 @@ function renderizarPaginaMateria() {
                     <td>${materia.nomeMateria}</td>
                     <td>${materia.nome}</td>
                     <td><button class="active btnUpdateMateria" data-id="${materia.id_materia}">Editar</button></td>
-                    <td><button class="disabled btnDeleteMateria" data-id="${materia.id_materia}">Deletar</button></td>
                 </tr>
             `
         tbody.innerHTML += linha
@@ -261,6 +259,7 @@ function renderizarPaginaMateria() {
 function renderizarPaginaTurma() {
     const tbody = document.getElementById('tabela-turmas')
     const sbody = document.getElementById('select-turmas')
+
     tbody.innerHTML = ''
     sbody.innerHTML = ''
     tbody.innerHTML += `
@@ -269,7 +268,6 @@ function renderizarPaginaTurma() {
                 <th>Turma</th>
                 <th>Professor responsável</th>
                 <th>Alterar</th>
-                <th>Deletar</th>
             </tr>
         `
     sbody.innerHTML += `
@@ -287,7 +285,6 @@ function renderizarPaginaTurma() {
                     <td>${t.nomeTurma}</td>
                     <td>${t.nome}</td>
                     <td><button class="active   btnUpdateTurma" data-id="${t.id_turma}">Editar</button></td>
-                    <td><button class="disabled btnDeleteTurma" data-id="${t.id_turma}">Deletar</button></td>
                 </tr>
             `
         const option = `
@@ -494,14 +491,32 @@ async function carregarAlunos() {
 }
 
 
-document.addEventListener('DOMContentLoaded', carregarMaterias().then(objMateriasDashDiretor => { }).catch(erro => {
+document.addEventListener('DOMContentLoaded', carregarMaterias().then(objMateriasDashDiretor => {
+
+
+}).catch(erro => {
     console.log("falha", erro)
 }))
-document.addEventListener('DOMContentLoaded', carregarTurmas().then(objTurmasDashDiretor => { }).catch(erro => {
+document.addEventListener('DOMContentLoaded', carregarTurmas().then(objTurmasDashDiretor => {
+
+}).catch(erro => {
     console.log("falha", erro)
 }))
 document.addEventListener('DOMContentLoaded', carregarPerfil)
-document.addEventListener('DOMContentLoaded', carregarProfessores().then(objProfessoresDashDiretor => { }).catch(erro => {
+document.addEventListener('DOMContentLoaded', carregarProfessores().then(objProfessoresDashDiretor => {
+    const selectProfs = document.getElementById('select-profsForm')
+    const selectTurmas = document.getElementById('classFormsDiretor')
+    selectTurmas.innerHTML = ''
+    selectProfs.innerHTML = ''
+    selectProfs.innerHTML += '<option value="" disabled selected>Selecionar professor</option>'
+    selectTurmas.innerHTML += '<option value="" disabled selected>Selecionar professor</option>'
+    objProfessoresDashDiretor.forEach(prof => {
+        const mLinha = `<option value="${prof.id_professor}">${prof.nome}</option>`
+        selectProfs.innerHTML += mLinha
+        selectTurmas.innerHTML += mLinha
+    })
+
+}).catch(erro => {
     console.log("falha", erro)
 }))
 document.addEventListener('DOMContentLoaded', carregarAlunos().then(objAlunosDashDiretor => { }).catch(erro => {

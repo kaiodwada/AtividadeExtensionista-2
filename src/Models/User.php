@@ -29,8 +29,7 @@ class User
                                   FROM Usuarios WHERE matricula_usuario = :id;');
         $stmt->execute(['id' => $matr]);
         $login = $stmt->fetch(PDO::FETCH_ASSOC);
-        //if ($matr === $login['matricula_usuario'] && password_verify($senha, $login['senha_hash'])) {
-        if ($senha === $login['senha_hash']) {
+        if ($matr === $login['matricula_usuario'] && password_verify($senha, $login['senha_hash'])) {
             if ($login['status_conta'] !== 1) {
                 return Response::json(["error" => "Esta conta está desativada."], 403);
             }
@@ -121,11 +120,13 @@ class User
     }
     public function passUpdate($id, $data)
     {
+        $passwordHash = password_hash($data['senha_hash'], PASSWORD_DEFAULT);
+
         $stmt = $this->db->prepare(
             'UPDATE usuarios SET senha_hash = ? WHERE id_usuario = ?'
         );
         return $stmt->execute([
-            $data['senha_hash'],
+            $passwordHash,
             $id
         ]);
     }

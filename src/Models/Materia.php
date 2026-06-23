@@ -18,7 +18,7 @@ class Materia {
                         p.id_professor,
                         p.nome
                  FROM materias as m
-                 INNER JOIN professor as p ON m.id_materia = p.id_professor')
+                 INNER JOIN professor as p ON m.id_professor = p.id_professor')
         ->fetchAll(PDO::FETCH_ASSOC);
     }
 

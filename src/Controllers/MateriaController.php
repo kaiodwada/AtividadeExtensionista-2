@@ -33,7 +33,7 @@ class MateriaController{
         }
 
         $this->materia->create($data);
-        Response::json(["message" => "materia cadastrado com sucesso"], 201);
+        Response::json(["message" => "Materia cadastrado com sucesso"], 201);
     }
 
     public function update($id){

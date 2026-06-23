@@ -1,7 +1,7 @@
 <form id="createForm" name="createForm" class="login-form">
     <h1>Inserir dados</h1>
-    <input type="text" name="txtNome" id="txtNome" placeholder="Nome">
-    <input type="text" name="txtMatricula" id="txtMatriculaUsuario" placeholder="Matricula">
+    <input type="text" name="txtNome" id="txtNome" placeholder="Nome" autocomplete="off">
+    <input type="text" name="txtMatricula" id="txtMatriculaUsuario" placeholder="Matricula" autocomplete="off">
     <input type="text" name="txtPassword" id="txtPassword" placeholder="Senha">
     <!-- Dados dos alunos -->
     <div id="studentsClassData" class="invisible createForm">

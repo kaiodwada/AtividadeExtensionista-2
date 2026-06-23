@@ -1,4 +1,3 @@
-<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
 <table class="p-table" id="tabela-turmas">
     <tr class="header">
         <th>#Id</th>

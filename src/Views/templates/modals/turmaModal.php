@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="http://localhost/ProjetoFinal/public/css/main.css">
     <style>
-        /* The overlay (background) */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -16,12 +15,10 @@
             background: rgba(0, 0, 0, 0.5);
         }
 
-        /* Show the modal */
         .modal-overlay.show {
             display: block;
         }
 
-        /* The modal box */
         .modal-box {
             background: white;
             width: 90%;
@@ -32,7 +29,6 @@
             position: relative;
         }
 
-        /* Close button */
         .modal-close {
             position: absolute;
             right: 12px;
@@ -57,7 +53,7 @@
                 <hr class="divisor">
                 <label for="id-turma">Corrigir nome da turma:</label>
                 <input type="hidden" id="id-turma" value="">
-                <input type="text" id="nomeTurma" value="">
+                <input type="text" id="nomeTurma" value="" class="input-estilizado">
                 
                 <label for="select-teachers">Trocar professor:</label>
                 <select class="select-form" id="select-teachers">
@@ -74,8 +70,6 @@
         let nome_turma = document.getElementById('nomeTurma')
         let btnAlterarTurma = document.getElementById('btnAlterarTurma')
         let selectTurma = document.getElementById('select-teachers')
-
-        //objProfessoresDashDiretor
 
         document.addEventListener("click", (e) => {
             if (e.target.classList.contains("btnUpdateTurma")) {
@@ -100,55 +94,11 @@
 
             openClassModal()
         }
-        /*
-                btnAlterarNotas.addEventListener("click", (e) => {
-                    e.preventDefault()
-                    let nota_primeira_prova = nota1.value
-                    let nota_segunda_prova = nota2.value
-                    let id_desempenho = id_nota.value
 
-                    const notas = {
-                        nota_primeira_prova,
-                        nota_segunda_prova
-                    }
-                    alterarDesempenho(id_desempenho, notas).then(retorno => {
-                        alert("Manutenção nas notas concluída")
-                        carregarDAlunos(id_atual)
-                        closeStudentModal()
-                    }).catch(erro => {
-                        console.log("Erro: ", erro)
-                    })
-                })
-        */
         const classModal = document.getElementById("ClassModal")
         const openClassBtn = document.getElementById("openClassModal")
         const closeClassBtn = document.getElementById("closeClassBtn")
 
-        /*
-        async function alterarDesempenho(id, notas) {
-            const urlAPIUpdate = `http://localhost/ProjetoFinal/api/performance/${id}`
-            try {
-                const response = await fetch(urlAPIUpdate, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(notas)
-                })
-                if (!response.ok) {
-                    let mensagemErro = `Erro retornado: ${response.status}`
-                    const retornoServidor = await response.json()
-                    console.log("Retorno: ", retornoServidor)
-                    throw new Error(retornoServidor)
-                }
-                const updateOK = await response.json()
-                return updateOK
-            } catch (error) {
-                console.log(error)
-                alert("Erro ao atualizar desempenho: ", error)
-            }
-        }
-*/
         function openClassModal() {
             classModal.classList.add("show")
         }

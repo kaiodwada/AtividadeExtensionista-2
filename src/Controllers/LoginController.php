@@ -22,7 +22,6 @@ class LoginController{
         $this->user->logout();
     }    
     public function index(){
-        //Response::json($this->user->login($matr, $senha));
         Response::json(["error" => "Index não existe"], 404);
     }
 
