@@ -343,18 +343,16 @@ tr:nth-child(even) {
 .card-comunicado {
     width: 350px;
     padding: 20px;
-    /* Tom sutil de creme para diferenciar de um formulário de entrada */
     background: #fffdf6;
     border: 2px solid #000000;
     border-radius: 12px;
-    /* Mantém a identidade visual da sombra rígida vermelha */
     box-shadow: 5px 5px 0px #ff2a2a;
     font-family: sans-serif;
     box-sizing: border-box;
     margin: 20px auto;
 }
 
-/* Cabeçalho com alinhamento dos lados */
+/* Cabeçalho */
 .comunicado-header {
     display: flex;
     justify-content: space-between;
@@ -384,18 +382,15 @@ tr:nth-child(even) {
     border: 1px solid #000000;
     border-radius: 8px;
     padding: 12px;
-    /* A mesma cor azulada/cinza que usamos nos inputs anteriores */
     color: #557a95;
     font-size: 14px;
     line-height: 1.5;
     min-height: 80px;
-    /* Adiciona uma sombra interna sutil, opcional para efeito de profundidade */
     box-shadow: inset 2px 2px 0px rgba(0, 0, 0, 0.05);
 }
 
 .comunicado-conteudo p {
     margin: 0;
-    /* Preserva quebras de linha caso o usuário tenha apertado 'Enter' no textarea */
     white-space: pre-wrap;
 }
 
@@ -415,7 +410,6 @@ tr:nth-child(even) {
     color: #ffffff;
     padding: 4px 8px;
     border-radius: 4px;
-    /* Mini sombra vermelha na própria tag para combinar */
     box-shadow: 2px 2px 0px #ff2a2a;
 }
 
@@ -429,7 +423,6 @@ tr:nth-child(even) {
     background: #ffffff;
     border: 2px solid #000000;
     border-radius: 12px;
-    /* Mantém a identidade da sombra rígida vermelha */
     box-shadow: 5px 5px 0px #ff2a2a;
     margin: 20px auto;
     box-sizing: border-box;
@@ -492,7 +485,6 @@ tr:nth-child(even) {
     border: 1px solid #000000;
     border-radius: 8px;
     box-shadow: 3px 3px 0px #ff2a2a;
-    /* Sombra igual ao print */
     outline: none;
     margin-bottom: 18px;
     display: block;
@@ -530,16 +522,16 @@ tr:nth-child(even) {
 .pagination {
   display: flex;
   justify-content: center;
-  list-style: none; /* remove list bullets */
+  list-style: none;
   padding: 10px;
 }
 
 .pagination li a {
-  display: block; /* let links fill the list item */
+  display: block;
   padding: 8px 12px;
   text-decoration: none;
   border: 1px solid gray;
   color: black;  
   margin: 0 4px;
-  border-radius: 5px; /* add rounded borders */
+  border-radius: 5px;
 }
