@@ -1,5 +1,7 @@
-Script para criar as tabelas utilizadas:
 
+OBS...: Necessário utilizar o XAMPP para que este projeto esteja ativo
+
+Script para criar as tabelas utilizadas:
 -- MySQL dump 10.13  Distrib 8.0.41, for Win64 (x86_64)
 --
 -- Host: localhost    Database: projetouninter
